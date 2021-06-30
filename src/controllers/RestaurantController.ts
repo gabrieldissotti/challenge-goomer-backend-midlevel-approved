@@ -9,6 +9,7 @@ import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValid
 import ListRestaurantsService from '@services/ListRestaurantsService'
 import { getRedisKey } from '@utils/functions'
 import Redis from '@libraries/Redis'
+import ShowRestaurantService from '@services/ShowRestaurantService'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -61,6 +62,28 @@ class RestaurantController {
       }
 
       return response.json(restaurantsWithAddress)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async show (request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params
+
+      const restaurantsRepository = container.resolve(RestaurantRepository)
+      const addressRepository = container.resolve(AddressRepository)
+
+      const showRestaurantService = new ShowRestaurantService(
+        restaurantsRepository,
+        addressRepository
+      )
+
+      const restaurant = await showRestaurantService.execute(
+        id
+      )
+
+      return response.json(restaurant)
     } catch (error) {
       next(error)
     }

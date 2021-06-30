@@ -3,3 +3,8 @@ export type FindAllParams = {
   page: number;
   pagesize: number;
 }
+
+export type FindOneParams = {
+  where: any;
+  select?: string;
+}

@@ -1,5 +1,5 @@
 import Connection from '@database/Connection'
-import { FindAllParams } from '@interfaces/AppRepositoryDTO'
+import { FindAllParams, FindOneParams } from '@interfaces/AppRepositoryDTO'
 
 type ConstructorParams = {
   table: string;
@@ -74,7 +74,10 @@ class AppRepository {
       .where(where)
   }
 
-  async findOne (where: any, select: string): Promise<any> {
+  async findOne ({
+    where,
+    select
+  }: FindOneParams): Promise<any> {
     const connection = await this.connect()
 
     return connection(this.table)

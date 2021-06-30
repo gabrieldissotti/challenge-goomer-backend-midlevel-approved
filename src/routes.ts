@@ -12,4 +12,8 @@ routes
   .post(RestaurantController.store)
   .get(getResponseFromCacheIfExists, RestaurantController.index)
 
+routes
+  .route('/restaurants/:id')
+  .get(RestaurantController.show)
+
 export default routes

@@ -1,4 +1,4 @@
-import { redisPort, redisHost } from '@configs/app'
+import { redisPort, redisHost, redisCacheDefaultDurationTime } from '@configs/app'
 import * as redis from 'redis'
 import Logger from '@libraries/Logger'
 
@@ -61,8 +61,6 @@ class Redis {
       return
     }
 
-    const cacheByOneHour = 3600
-
     data.cachedInRedis = {
       updated_at: new Date()
     }
@@ -71,7 +69,7 @@ class Redis {
 
     this.client?.setex(
       key,
-      cacheByOneHour,
+      Number(redisCacheDefaultDurationTime),
       JSON.stringify(data)
     )
   }

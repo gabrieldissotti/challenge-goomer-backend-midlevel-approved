@@ -76,7 +76,6 @@ docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HO
 
 ## Banco de dados e modelagem
 
-
 Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e SQL Server), eu optei em usar o Postgres porque:
 
 - É um projeto Open Source, sendo assim gratuíto não sendo necessário arcar com custos de licença
@@ -91,3 +90,10 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 <img src="./docs/diagram.png" />
 
 [Você pode ver o DDL clicando aqui](./docs/DDL.sql)
+
+## Outras decisões técnicas
+
+- Optei por adicionar redis para fazer cache no endpoint de listagem de produtos e restaurantes, assim aumentando a performance e diminuindo o processamento do lado do servidor, se esse projeto fosse para produção usando um serviço de custo dinâmico como Lambda da AWS, teríamos uma redução de custos significativa no longo prazo, além de tornar a experiência do usuário final melhor por ter que esperar menos.
+  - O cache está configurado para durar 1 minuto, porém isso seria algo parametrizável pela variável de ambiente `REDIS_CACHE_DURATION` e esse tempo seria decidido dependendo do cenário tivermos em ambiente de produção.
+  - A chave do cache é uma string gerada combinado a rota e os query params
+

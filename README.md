@@ -73,3 +73,21 @@ docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HO
 
 
 **Production Ready:** Se você deseja executar a versão built que vai rodar em produção, apenas troque o --target para `back_production` ao invés de `back_development` quando for gerar a imagem, o resto do processo é o mesmo.
+
+## Banco de dados e modelagem
+
+
+Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e SQL Server), eu optei em usar o Postgres porque:
+
+- É um projeto Open Source, sendo assim gratuíto não sendo necessário arcar com custos de licença
+
+- Tem uma comunidade bem grande, então para quase qualquer problema se encontra facilmente soluções em forums na internet.
+
+- Suporta queries em paralelo que usam diferentes núcleos do processador
+
+Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
+
+
+<img src="./docs/DER.png" style="margin: auto;" />
+
+[Você pode ver o DDL clicando aqui](./docs/DDL.sql)

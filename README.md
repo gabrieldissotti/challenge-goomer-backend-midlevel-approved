@@ -3,6 +3,8 @@
 ## ✨ O Projeto
 O projeto consiste em uma API para cadastro, alteração, listagens e exclusões de restaurantes e seus produtos, utilizando Node e Typescript.
 
+Nesse README.md busquei trazer bastante argumentações sobre o porque utilizei essas ferramentas e técnicas no projeto.
+
 Veja quais foram os [requisitos para esse desafio](./docs/CHALLENGE.md).
 
 ## 📜 Manual de execução
@@ -101,3 +103,15 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
   - O cache está configurado para durar 1 minuto, porém isso seria algo parametrizável pela variável de ambiente `REDIS_CACHE_DURATION` e esse tempo seria decidido dependendo do cenário tivermos em ambiente de produção.
   - A chave do cache é uma string gerada combinado a rota e os query params
 
+
+
+## Desafios e problemas
+
+- Não descobri por que o modo watch não está funcionando enquanto uso docker, as alterações na maquina são refletidas dentro do docker pelo volume, porém o ts-node-dev não re-compila quando ocorre as alterações, isso está acontecendo com outras libs também como webpack quando uso em projetos em React.
+
+## Considerações finais
+
+Fico a disposição para tirar dúvidas e sempre estarei aberto a criticas construtivas e sugestões de melhorias, obrigado pela atenção!
+
+Contato: gabrieldnrodrigues@gmail.com
+Linkedin: https://www.linkedin.com/in/gabrieldissotti/

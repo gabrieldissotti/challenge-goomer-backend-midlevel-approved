@@ -7,6 +7,8 @@ import CreateRestaurantValidator from '@validators/CreateRestaurantValidator'
 import AddressRepository from '@repositories/AddressRepository'
 import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
 import ListRestaurantsService from '@services/ListRestaurantsService'
+import { getRedisKey } from '@utils/functions'
+import Redis from '@libraries/Redis'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -50,6 +52,13 @@ class RestaurantController {
       const restaurantsWithAddress = await listRestaurantsService.execute(
         expectedParams
       )
+
+      if (Redis.isReadyToUse) {
+        Redis.saveInRedis(
+          getRedisKey(request),
+          restaurantsWithAddress
+        )
+      }
 
       return response.json(restaurantsWithAddress)
     } catch (error) {

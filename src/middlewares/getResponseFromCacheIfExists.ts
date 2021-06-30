@@ -14,15 +14,18 @@ const getResponseFromCacheIfExists = async (req: Request, res: Response, next: N
 
   const key = getRedisKey(req)
 
-  Redis.client.get(key, (err: any, data: any) => {
+  Redis.client.get(key, (err: any, cachedData: any) => {
     if (err) return next()
 
-    if (data !== null) {
+    if (cachedData !== null) {
       logger.info('cached response founded, returning data from redis')
 
-      const responseData: any = JSON.parse(data)
+      const { data, cache }: any = JSON.parse(cachedData)
 
-      return res.json(responseData)
+      res.header('cache_updated_at', cache.updated_at)
+      res.header('cache_invalidation_at', cache.invalidation_at)
+
+      return res.json(data)
     } else {
       logger.info('cached response not found, continuing to next middleware')
       return next()

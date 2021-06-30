@@ -61,8 +61,17 @@ class Redis {
       return
     }
 
-    data.cachedInRedis = {
-      updated_at: new Date()
+    const actualDate = new Date()
+    const invalidationAt = new Date().setMinutes(
+      actualDate.getMinutes() + 1
+    )
+
+    const dataToCache = {
+      cache: {
+        updated_at: actualDate,
+        invalidation_at: new Date(invalidationAt)
+      },
+      data
     }
 
     this.logger.info(`saving ${key} in redis`)
@@ -70,7 +79,7 @@ class Redis {
     this.client?.setex(
       key,
       Number(redisCacheDefaultDurationTime),
-      JSON.stringify(data)
+      JSON.stringify(dataToCache)
     )
   }
 }

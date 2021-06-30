@@ -103,6 +103,8 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
   - O cache está configurado para durar 1 minuto, porém isso seria algo parametrizável pela variável de ambiente `REDIS_CACHE_DURATION` e esse tempo seria decidido dependendo do cenário tivermos em ambiente de produção.
   - A chave do cache é uma string gerada combinado a rota e os query params
 
+- Optei por utilizar UUID's ao invés de números sequenciais porque essa é uma técnica que pode garantir um pouco mais segurança dado que seria mais difícil de descobrir os recursos da mesma natureza, são praticamente infinitos e é a melhor forma de identificar e relacionar e relacionar objetos dentre um grupo de API's ou bancos de dados distribuídos.
+
 ## Considerações finais
 
 Fico a disposição para tirar dúvidas e sempre estarei aberto a criticas construtivas e sugestões de melhorias, obrigado pela atenção!

@@ -32,6 +32,7 @@ class DefaultPaginatedListValidator {
   public getExpectedParams (): Omit<DefaultPaginatedListValidator, 'validate'> {
     const {
       validate: validateFunction,
+      schema,
       ...expectedParams
     } = this
 

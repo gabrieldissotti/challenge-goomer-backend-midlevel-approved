@@ -9,3 +9,7 @@ export function getRedisKey (req: Request) {
 
   return key
 }
+
+export function removeUndefinedKeys (obj: any): any {
+  return JSON.parse(JSON.stringify(obj))
+}

@@ -50,6 +50,18 @@ class RestaurantRepositoryMock {
       updated_at: '2021-06-30T20:16:22.971Z'
     }
   }
+
+  update () {
+    return [
+      {
+        id: '3b6a5006-f12d-4afc-beab-7b23b428616d',
+        name: 'Gabe Panquecaria',
+        photo_url: 'https://avatars.githubusercontent.com/u/33178519?v=4',
+        created_at: '2021-06-30T20:16:22.971Z',
+        updated_at: '2021-06-30T20:16:22.971Z'
+      }
+    ]
+  }
 }
 
 export default new RestaurantRepositoryMock()

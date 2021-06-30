@@ -15,5 +15,6 @@ routes
 routes
   .route('/restaurants/:id')
   .get(RestaurantController.show)
+  .patch(RestaurantController.update)
 
 export default routes

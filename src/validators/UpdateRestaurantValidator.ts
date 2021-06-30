@@ -1,17 +1,18 @@
 import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
+import { removeUndefinedKeys } from '@utils/functions'
 
-class CreateRestaurantValidator {
+class UpdateRestaurantValidator {
   private schema: any;
 
-  public name: string;
-  public photoUrl: string;
-  public address: {
-    street: string;
-    number: string;
-    postalCode: string;
-    neighborhood: string;
+  public name?: string;
+  public photoUrl?: string;
+  public address?: {
+    street?: string;
+    number?: string;
+    postalCode?: string;
+    neighborhood?: string;
   };
 
   constructor (data: any) {
@@ -19,6 +20,7 @@ class CreateRestaurantValidator {
 
     this.name = data?.name
     this.photoUrl = data?.photoUrl
+
     this.address = {
       street: data?.address?.street,
       number: data?.address?.number,
@@ -29,13 +31,13 @@ class CreateRestaurantValidator {
 
   private setupSchema () {
     this.schema = yup.object().shape({
-      name: yup.string().required(),
-      photoUrl: yup.string().required(),
+      name: yup.string(),
+      photoUrl: yup.string(),
       address: yup.object().shape({
-        street: yup.string().required(),
-        number: yup.string().required(),
-        postalCode: yup.string().required(),
-        neighborhood: yup.string().required()
+        street: yup.string(),
+        number: yup.string(),
+        postalCode: yup.string(),
+        neighborhood: yup.string()
       })
     })
   }
@@ -46,15 +48,15 @@ class CreateRestaurantValidator {
     })
   }
 
-  public getExpectedParams (): Omit<CreateRestaurantValidator, 'validate'> {
+  public getExpectedParams (): Omit<UpdateRestaurantValidator, 'validate'> {
     const {
       validate: validateFunction,
       schema,
       ...expectedParams
     } = this
 
-    return expectedParams
+    return removeUndefinedKeys(expectedParams)
   }
 }
 
-export default CreateRestaurantValidator
+export default UpdateRestaurantValidator

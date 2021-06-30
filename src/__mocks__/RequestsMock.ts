@@ -14,5 +14,13 @@ export default {
       page: 1,
       pagesize: 2
     }
+  },
+  '/restaurants/:id': {
+    PATCH: {
+      name: 'Gabe Panquecaria',
+      address: {
+        street: 'Rua Voluntários da Patria'
+      }
+    }
   }
 }

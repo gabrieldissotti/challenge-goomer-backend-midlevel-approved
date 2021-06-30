@@ -1,5 +1,6 @@
 import Connection from '@database/Connection'
-import { FindAllParams, FindOneParams } from '@interfaces/AppRepositoryDTO'
+import { FindAllParams, FindOneParams, UpdateParams } from '@interfaces/AppRepositoryDTO'
+import { removeUndefinedKeys } from '@utils/functions'
 
 type ConstructorParams = {
   table: string;
@@ -56,24 +57,6 @@ class AppRepository {
     }
   }
 
-  async findWhere (
-    where: any,
-    select: string,
-    page: number,
-    pageSize: number
-  ): Promise<any[]> {
-    const connection = await this.connect()
-
-    return connection(this.table)
-      .withSchema(this.schema)
-      .select(select || '*')
-      .limit(pageSize)
-      .offset(page - 1)
-      .select(select || '*')
-      .select(connection.raw('count(id) OVER() as total'))
-      .where(where)
-  }
-
   async findOne ({
     where,
     select
@@ -87,22 +70,24 @@ class AppRepository {
       .first()
   }
 
-  async update (update: any): Promise<any[]> {
-    const connection = await this.connect()
+  async update ({
+    where,
+    data
+  }: UpdateParams): Promise<any[]> {
+    const sanitizedData = removeUndefinedKeys(data)
 
-    return connection(this.table).withSchema(this.schema).update(update)
-  }
+    if (!sanitizedData || Object.keys(sanitizedData).length === 0) return []
 
-  async updateWhere (update: any, where: any, returning = null): Promise<any[]> {
     const connection = await this.connect()
 
     return connection(this.table)
       .withSchema(this.schema)
-      .update(update, returning || '*')
       .where(where)
+      .update(sanitizedData)
+      .returning('*')
   }
 
-  async deleteWhere (where: any): Promise<any> {
+  async delete (where: any): Promise<any> {
     const connection = await this.connect()
     return connection(this.table).withSchema(this.schema).del().where(where)
   }

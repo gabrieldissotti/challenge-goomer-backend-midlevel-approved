@@ -10,6 +10,8 @@ import ListRestaurantsService from '@services/ListRestaurantsService'
 import { getRedisKey } from '@utils/functions'
 import Redis from '@libraries/Redis'
 import ShowRestaurantService from '@services/ShowRestaurantService'
+import UpdateRestaurantValidator from '@validators/UpdateRestaurantValidator'
+import UpdateRestaurantService from '@services/UpdateRestaurantService'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -84,6 +86,31 @@ class RestaurantController {
       )
 
       return response.json(restaurant)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async update (request: Request, response: Response, next: NextFunction) {
+    try {
+      const bodyParams = new UpdateRestaurantValidator(request.body)
+      await bodyParams.validate()
+      const expectedParams = bodyParams.getExpectedParams()
+
+      const restaurantsRepository = container.resolve(RestaurantRepository)
+      const addressRepository = container.resolve(AddressRepository)
+
+      const updateRestaurantService = new UpdateRestaurantService(
+        restaurantsRepository,
+        addressRepository
+      )
+
+      const restaurantWithAddress = await updateRestaurantService.execute(
+        expectedParams,
+        request.params.id
+      )
+
+      return response.json(restaurantWithAddress)
     } catch (error) {
       next(error)
     }

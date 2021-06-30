@@ -32,12 +32,19 @@ class Redis {
   }
 
   private assignObservers () {
-    this.client?.on('connect', () => this.logger.info('redis connect'))
+    this.client?.on('connect', () =>
+      this.logger.info('redis connection successfully')
+    )
+
     this.client?.on('ready', () => {
       this.isReadyToUse = true
-      this.logger.info('redis ready')
+      this.logger.info('redis ready to be used')
     })
-    this.client?.on('reconnecting', () => this.logger.info('trying to reconnect with redis'))
+
+    this.client?.on('reconnecting', () =>
+      this.logger.info('trying to reconnect with redis')
+    )
+
     this.client?.on('error', (error: any) => {
       if (typeof error === 'string' &&
         error.includes('The connection is already closed')
@@ -59,6 +66,8 @@ class Redis {
     data.cachedInRedis = {
       updated_at: new Date()
     }
+
+    this.logger.info(`saving ${key} in redis`)
 
     this.client?.setex(
       key,

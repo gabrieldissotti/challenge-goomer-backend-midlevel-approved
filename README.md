@@ -1,5 +1,9 @@
 # Goomer backend challenge
 
+## ✨ O Projeto
+O projeto consiste em uma API para cadastro, alteração, listagens e exclusões de restaurantes e seus produtos, utilizando Node e Typescript.
+
+Veja quais foram os [requisitos para esse desafio](./docs/CHALLENGE.md).
 
 ## 📜 Manual de execução
 

@@ -5,6 +5,7 @@ import AddressRepository from '@repositories/AddressRepository'
 
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
 import { AddressDTO } from '@interfaces/AddressDTO'
+import HttpException from '@libraries/HttpException'
 
 type Restaurant = RestaurantDTO & {
   address: AddressDTO
@@ -27,6 +28,10 @@ class ShowRestaurantService {
           id: restaurantId
         }
       })
+
+    if (!restaurant) {
+      throw new HttpException(404, 'Restaurant not found')
+    }
 
     restaurant.address =
       await this.addressRepository.findOne({

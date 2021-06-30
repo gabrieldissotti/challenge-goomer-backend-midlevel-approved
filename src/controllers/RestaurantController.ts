@@ -12,6 +12,7 @@ import Redis from '@libraries/Redis'
 import ShowRestaurantService from '@services/ShowRestaurantService'
 import UpdateRestaurantValidator from '@validators/UpdateRestaurantValidator'
 import UpdateRestaurantService from '@services/UpdateRestaurantService'
+import DestroyRestaurantService from '@services/DestroyRestaurantService'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -111,6 +112,26 @@ class RestaurantController {
       )
 
       return response.json(restaurantWithAddress)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async destroy (request: Request, response: Response, next: NextFunction) {
+    try {
+      const restaurantsRepository = container.resolve(RestaurantRepository)
+      const addressRepository = container.resolve(AddressRepository)
+
+      const destroyRestaurantService = new DestroyRestaurantService(
+        restaurantsRepository,
+        addressRepository
+      )
+
+      const responseData = await destroyRestaurantService.execute(
+        request.params.id
+      )
+
+      return response.json(responseData)
     } catch (error) {
       next(error)
     }

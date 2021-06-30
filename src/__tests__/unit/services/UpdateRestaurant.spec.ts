@@ -5,7 +5,6 @@ import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
 import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
 import RequestsMock from '@mocks/RequestsMock'
 import HttpException from '@libraries/HttpException'
-import { promisify } from 'util'
 
 jest.mock('@repositories/RestaurantRepository', () =>
   jest.fn().mockImplementation(() => RestaurantRepositoryMock)
@@ -61,8 +60,6 @@ describe('Update Restaurant Service', () => {
       addressRepository
     )
 
-    restaurantRepository.update = promisify(() => ([]))
-
     const response = updateRestaurantService.execute(
       {
         address: {
@@ -74,7 +71,7 @@ describe('Update Restaurant Service', () => {
 
     await expect(
       response
-    ).resolves.toHaveProperty('restaurant')
+    ).resolves.toHaveProperty('id')
   })
 
   it('should throw an exception when no data to update is informed', async () => {
@@ -103,7 +100,7 @@ describe('Update Restaurant Service', () => {
       addressRepository
     )
 
-    restaurantRepository.findOne = promisify(() => ({}))
+    restaurantRepository.findOne = async () => undefined
 
     await expect(
       updateRestaurantService.execute(

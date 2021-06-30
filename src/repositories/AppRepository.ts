@@ -1,4 +1,5 @@
 import Connection from '@database/Connection'
+import { FindAllParams } from '@interfaces/AppRepositoryDTO'
 
 type ConstructorParams = {
   table: string;
@@ -25,15 +26,34 @@ class AppRepository {
     return connection
   }
 
-  async findAll (select: string, page: number, pageSize: number): Promise<any> {
+  async findAll ({
+    page,
+    pagesize,
+    select
+  }: FindAllParams): Promise<any> {
     const connection = await this.connect()
 
-    return connection(this.table)
+    const totalResults = await connection(this.table)
       .withSchema(this.schema)
-      .limit(pageSize)
+      .select(connection.raw('count(id) OVER() as total'))
+
+    const totalItems = Number(totalResults[0]?.total || 0)
+
+    const results = await connection(this.table)
+      .withSchema(this.schema)
+      .limit(pagesize)
       .offset(page - 1)
       .select(select || '*')
-      .select(connection.raw('count(id) OVER() as total'))
+
+    return {
+      pagination: {
+        page,
+        totalPages: Math.ceil(totalItems / pagesize),
+        pagesize,
+        totalItems
+      },
+      items: results
+    }
   }
 
   async findWhere (

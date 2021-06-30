@@ -9,6 +9,10 @@ export default {
         postalCode: '18060005',
         neighborhood: 'Vila Carvalho'
       }
+    },
+    GET: {
+      page: 1,
+      pagesize: 2
     }
   }
 }

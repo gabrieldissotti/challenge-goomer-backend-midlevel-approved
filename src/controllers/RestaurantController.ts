@@ -5,6 +5,8 @@ import RestaurantRepository from '@repositories/RestaurantRepository'
 import CreateRestaurantService from '@services/CreateRestaurantService'
 import CreateRestaurantValidator from '@validators/CreateRestaurantValidator'
 import AddressRepository from '@repositories/AddressRepository'
+import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
+import ListRestaurantsService from '@services/ListRestaurantsService'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -26,6 +28,30 @@ class RestaurantController {
       )
 
       return response.json(restaurantWithAddress)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async index (request: Request, response: Response, next: NextFunction) {
+    try {
+      const queryParams = new DefaultPaginatedListValidator(request.query)
+      await queryParams.validate()
+      const expectedParams = queryParams.getExpectedParams()
+
+      const restaurantsRepository = container.resolve(RestaurantRepository)
+      const addressRepository = container.resolve(AddressRepository)
+
+      const listRestaurantsService = new ListRestaurantsService(
+        restaurantsRepository,
+        addressRepository
+      )
+
+      const restaurantsWithAddress = await listRestaurantsService.execute(
+        expectedParams
+      )
+
+      return response.json(restaurantsWithAddress)
     } catch (error) {
       next(error)
     }

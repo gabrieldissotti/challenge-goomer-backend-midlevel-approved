@@ -16,3 +16,8 @@ export const databaseConfig = {
   poolMin: process.env.DATABASE_POOL_MIN || 2,
   poolMax: process.env.DATABASE_POOL_MAN || 4
 }
+
+export const paginationDefault = {
+  page: 1,
+  pagesize: 10
+}

@@ -1,4 +1,4 @@
-import Connection from '../database/Connection'
+import Connection from '@database/Connection'
 
 type ConstructorParams = {
   table: string;
@@ -84,7 +84,7 @@ class AppRepository {
     return connection(this.table).withSchema(this.schema).del().where(where)
   }
 
-  async save (data: any, returning = null): Promise<any[]> {
+  async save (data: any, returning = null): Promise<any> {
     const connection = await this.connect()
     return connection(this.table)
       .withSchema(this.schema)

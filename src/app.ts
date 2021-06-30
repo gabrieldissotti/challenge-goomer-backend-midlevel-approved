@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 
 import express from 'express'
 
@@ -14,6 +15,8 @@ const app = express()
 app.use(cors())
 
 app.use(assignRequestId)
+
+app.use(express.json())
 
 app.use(routes)
 

@@ -1,5 +1,5 @@
 import Connection from '@database/Connection'
-import { FindAllParams, FindOneParams, UpdateParams } from '@interfaces/AppRepositoryDTO'
+import { FindAllParams, FindManyParams, FindOneParams, UpdateParams } from '@interfaces/AppRepositoryDTO'
 import { removeUndefinedKeys } from '@utils/functions'
 
 type ConstructorParams = {
@@ -55,6 +55,20 @@ class AppRepository {
       },
       items: results
     }
+  }
+
+  async findMany ({
+    where,
+    select
+  }: FindManyParams): Promise<any> {
+    const connection = await this.connect()
+
+    const results = await connection(this.table)
+      .withSchema(this.schema)
+      .where(where)
+      .select(select || '*')
+
+    return results
   }
 
   async findOne ({

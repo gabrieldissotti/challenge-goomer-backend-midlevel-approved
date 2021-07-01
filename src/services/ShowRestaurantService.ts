@@ -6,9 +6,12 @@ import AddressRepository from '@repositories/AddressRepository'
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
 import { AddressDTO } from '@interfaces/AddressDTO'
 import HttpException from '@libraries/HttpException'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
+import { WorkingHourToRestaurantDTO } from '@interfaces/WorkingHourDTO'
 
 type Restaurant = RestaurantDTO & {
-  address: AddressDTO
+  address: AddressDTO;
+  workingHours: WorkingHourToRestaurantDTO[]
 }
 
 @injectable()
@@ -18,7 +21,10 @@ class ShowRestaurantService {
     private restaurantRepository: RestaurantRepository,
 
     @inject('AddressRepository')
-    private addressRepository: AddressRepository
+    private addressRepository: AddressRepository,
+
+    @inject('WorkingHourRepository')
+    private workingHourRepository: WorkingHourRepository
   ) { }
 
   public async execute (restaurantId: string): Promise<Restaurant> {
@@ -39,6 +45,12 @@ class ShowRestaurantService {
           restaurant_id: restaurantId
         }
       })
+
+    restaurant.workingHours = await this.workingHourRepository.findMany({
+      where: {
+        restaurant_id: restaurantId
+      }
+    })
 
     return restaurant
   }

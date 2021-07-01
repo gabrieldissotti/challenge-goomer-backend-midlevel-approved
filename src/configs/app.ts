@@ -21,3 +21,5 @@ export const paginationDefault = {
   page: 1,
   pagesize: 10
 }
+
+export const regexToValidateTime = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/

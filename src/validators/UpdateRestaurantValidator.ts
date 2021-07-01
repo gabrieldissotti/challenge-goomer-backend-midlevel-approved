@@ -2,6 +2,8 @@ import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
 import { removeUndefinedKeys } from '@utils/functions'
+import { regexToValidateTime } from '@configs/app'
+import { Weekday } from '@interfaces/Weekday'
 
 class UpdateRestaurantValidator {
   private schema: any;
@@ -15,6 +17,12 @@ class UpdateRestaurantValidator {
     neighborhood?: string;
   };
 
+  public workingHours: Array<{
+    weekday: Weekday;
+    startAt: string;
+    finishAt: string;
+  }>;
+
   constructor (data: any) {
     this.setupSchema()
 
@@ -27,9 +35,18 @@ class UpdateRestaurantValidator {
       postalCode: data?.address?.postalCode,
       neighborhood: data?.address?.neighborhood
     }
+
+    this.workingHours = data?.workingHours?.map((day: any) => ({
+      weekday: day.weekday,
+      startAt: String(day.startAt),
+      finishAt: String(day.finishAt)
+    }))
   }
 
   private setupSchema () {
+    const timeErrorMessageDefault =
+      'time format to working hour in startAt is wrong. The pattern allowed is hh:mm and between 00:00 and 23:59'
+
     this.schema = yup.object().shape({
       name: yup.string(),
       photoUrl: yup.string(),
@@ -38,7 +55,22 @@ class UpdateRestaurantValidator {
         number: yup.string(),
         postalCode: yup.string(),
         neighborhood: yup.string()
-      })
+      }),
+      workingHours: yup.array().of(
+        yup.object().shape({
+          weekday: yup.string().required(),
+          startAt: yup
+            .string()
+            .trim()
+            .matches(regexToValidateTime, timeErrorMessageDefault)
+            .required(),
+          finishAt: yup
+            .string()
+            .trim()
+            .matches(regexToValidateTime, timeErrorMessageDefault)
+            .required()
+        })
+      )
     })
   }
 

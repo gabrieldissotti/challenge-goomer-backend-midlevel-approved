@@ -13,6 +13,7 @@ import ShowRestaurantService from '@services/ShowRestaurantService'
 import UpdateRestaurantValidator from '@validators/UpdateRestaurantValidator'
 import UpdateRestaurantService from '@services/UpdateRestaurantService'
 import DestroyRestaurantService from '@services/DestroyRestaurantService'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {
@@ -23,10 +24,12 @@ class RestaurantController {
 
       const restaurantsRepository = container.resolve(RestaurantRepository)
       const addressRepository = container.resolve(AddressRepository)
+      const workingHourRepository = container.resolve(WorkingHourRepository)
 
       const createRestaurantService = new CreateRestaurantService(
         restaurantsRepository,
-        addressRepository
+        addressRepository,
+        workingHourRepository
       )
 
       const restaurantWithAddress = await createRestaurantService.execute(
@@ -76,10 +79,12 @@ class RestaurantController {
 
       const restaurantsRepository = container.resolve(RestaurantRepository)
       const addressRepository = container.resolve(AddressRepository)
+      const workingHourRepository = container.resolve(WorkingHourRepository)
 
       const showRestaurantService = new ShowRestaurantService(
         restaurantsRepository,
-        addressRepository
+        addressRepository,
+        workingHourRepository
       )
 
       const restaurant = await showRestaurantService.execute(
@@ -100,10 +105,12 @@ class RestaurantController {
 
       const restaurantsRepository = container.resolve(RestaurantRepository)
       const addressRepository = container.resolve(AddressRepository)
+      const workingHourRepository = container.resolve(WorkingHourRepository)
 
       const updateRestaurantService = new UpdateRestaurantService(
         restaurantsRepository,
-        addressRepository
+        addressRepository,
+        workingHourRepository
       )
 
       const restaurantWithAddress = await updateRestaurantService.execute(

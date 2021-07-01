@@ -4,6 +4,11 @@ export type FindAllParams = {
   pagesize: number;
 }
 
+export type FindManyParams = {
+  where: any;
+  select?: string;
+}
+
 export type FindOneParams = {
   where: any;
   select?: string;

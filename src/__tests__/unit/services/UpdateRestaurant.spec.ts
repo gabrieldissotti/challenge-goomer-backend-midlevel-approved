@@ -5,6 +5,8 @@ import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
 import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
 import RequestsMock from '@mocks/RequestsMock'
 import HttpException from '@libraries/HttpException'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
+import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
 
 jest.mock('@repositories/RestaurantRepository', () =>
   jest.fn().mockImplementation(() => RestaurantRepositoryMock)
@@ -14,14 +16,20 @@ jest.mock('@repositories/AddressRepository', () =>
   jest.fn().mockImplementation(() => AddressRepositoryMock)
 )
 
+jest.mock('@repositories/WorkingHourRepository', () =>
+  jest.fn().mockImplementation(() => WorkingHourRepositoryMock)
+)
+
 describe('Update Restaurant Service', () => {
   it('should be instantiated correctly', async () => {
     const restaurantRepository = new RestaurantRepository()
     const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
 
     const updateRestaurantService = new UpdateRestaurantService(
       restaurantRepository,
-      addressRepository
+      addressRepository,
+      workingHourRepository
     )
 
     await expect(
@@ -35,10 +43,12 @@ describe('Update Restaurant Service', () => {
   it('should return a address when its not updated', async () => {
     const restaurantRepository = new RestaurantRepository()
     const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
 
     const updateRestaurantService = new UpdateRestaurantService(
       restaurantRepository,
-      addressRepository
+      addressRepository,
+      workingHourRepository
     )
 
     const response = updateRestaurantService.execute(
@@ -51,13 +61,36 @@ describe('Update Restaurant Service', () => {
     ).resolves.toHaveProperty('address')
   })
 
-  it('should return a restaurant when its not updated', async () => {
+  it('should return a working hours when its not updated', async () => {
     const restaurantRepository = new RestaurantRepository()
     const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
 
     const updateRestaurantService = new UpdateRestaurantService(
       restaurantRepository,
-      addressRepository
+      addressRepository,
+      workingHourRepository
+    )
+
+    const response = updateRestaurantService.execute(
+      { name: 'Gabe Panquecaria' },
+      'a-uuid'
+    )
+
+    await expect(
+      response
+    ).resolves.toHaveProperty('workingHours')
+  })
+
+  it('should return a restaurant when its not updated', async () => {
+    const restaurantRepository = new RestaurantRepository()
+    const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
+
+    const updateRestaurantService = new UpdateRestaurantService(
+      restaurantRepository,
+      addressRepository,
+      workingHourRepository
     )
 
     const response = updateRestaurantService.execute(
@@ -77,10 +110,12 @@ describe('Update Restaurant Service', () => {
   it('should throw an exception when no data to update is informed', async () => {
     const restaurantRepository = new RestaurantRepository()
     const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
 
     const updateRestaurantService = new UpdateRestaurantService(
       restaurantRepository,
-      addressRepository
+      addressRepository,
+      workingHourRepository
     )
 
     await expect(
@@ -94,10 +129,12 @@ describe('Update Restaurant Service', () => {
   it('should throw an exception when restaurant is not found', async () => {
     const restaurantRepository = new RestaurantRepository()
     const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
 
     const updateRestaurantService = new UpdateRestaurantService(
       restaurantRepository,
-      addressRepository
+      addressRepository,
+      workingHourRepository
     )
 
     restaurantRepository.findOne = async () => undefined
@@ -105,6 +142,66 @@ describe('Update Restaurant Service', () => {
     await expect(
       updateRestaurantService.execute(
         {},
+        'a-uuid'
+      )
+    ).rejects.toThrow(HttpException)
+  })
+
+  it('should throw an exception when receives duplicated weekdays', async () => {
+    const restaurantRepository = new RestaurantRepository()
+    const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
+
+    const updateRestaurantService = new UpdateRestaurantService(
+      restaurantRepository,
+      addressRepository,
+      workingHourRepository
+    )
+
+    const mock = RequestsMock['/restaurants/:id'].PATCH
+
+    mock.workingHours.push({
+      weekday: 'sunday',
+      startAt: '13:00',
+      finishAt: '18:00'
+    })
+
+    mock.workingHours.push({
+      weekday: 'sunday',
+      startAt: '13:00',
+      finishAt: '18:00'
+    })
+
+    await expect(
+      updateRestaurantService.execute(
+        mock,
+        'a-uuid'
+      )
+    ).rejects.toThrow(HttpException)
+  })
+
+  it('should throw an exception when receives a wrong weekday name', async () => {
+    const restaurantRepository = new RestaurantRepository()
+    const addressRepository = new AddressRepository()
+    const workingHourRepository = new WorkingHourRepository()
+
+    const updateRestaurantService = new UpdateRestaurantService(
+      restaurantRepository,
+      addressRepository,
+      workingHourRepository
+    )
+
+    const mock = RequestsMock['/restaurants/:id'].PATCH
+
+    mock.workingHours.push({
+      weekday: 'goomer',
+      startAt: '13:00',
+      finishAt: '18:00'
+    })
+
+    await expect(
+      updateRestaurantService.execute(
+        mock,
         'a-uuid'
       )
     ).rejects.toThrow(HttpException)

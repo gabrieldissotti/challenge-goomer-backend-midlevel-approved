@@ -69,7 +69,8 @@ CREATE TABLE IF NOT EXISTS "promotions" (
 CREATE INDEX idx_promotions_id ON promotions USING BTREE (id);
 CREATE INDEX idx_promotions_product_id ON promotions USING BTREE (product_id);
 
-CREATE TYPE "weekday_enum" AS ENUM('sunday',
+CREATE TYPE "weekday_enum" AS ENUM(
+  'sunday',
   'monday',
   'tuesday',
   'wednesday',
@@ -80,7 +81,7 @@ CREATE TYPE "weekday_enum" AS ENUM('sunday',
 
 CREATE TABLE IF NOT EXISTS "working_hours" (
   "id"            uuid NOT NULL DEFAULT uuid_generate_v4(),
-  "product_id"    uuid,
+  "restaurant_id" uuid,
   "promotion_id"  uuid,
   "weekday"       "weekday_enum" NOT NULL,
   "start_at"      TIME NOT NULL,
@@ -88,10 +89,10 @@ CREATE TABLE IF NOT EXISTS "working_hours" (
   "created_at"    TIMESTAMP DEFAULT NOW() NOT NULL,
   "updated_at"    TIMESTAMP DEFAULT NOW() NOT NULL,
   CONSTRAINT working_hours_pkey PRIMARY KEY (id),
-  CONSTRAINT product_id_fkey FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE,
+  CONSTRAINT restaurant_id_fkey FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE,
   CONSTRAINT promotion_id_fkey FOREIGN KEY (promotion_id) REFERENCES promotions (id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_working_hours_id ON working_hours USING BTREE (id);
-CREATE INDEX idx_working_hours_product_id ON working_hours USING BTREE (product_id);
+CREATE INDEX idx_working_hours_restaurant_id ON working_hours USING BTREE (restaurant_id);
 CREATE INDEX idx_working_hours_promotion_id ON working_hours USING BTREE (promotion_id);

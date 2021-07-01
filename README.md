@@ -93,7 +93,7 @@ Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e S
 Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 
-<img src="./docs/diagram.png" />
+<img src="./docs/DER.png" />
 
 [Você pode ver o DDL clicando aqui](./docs/DDL.sql)
 

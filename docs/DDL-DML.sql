@@ -96,3 +96,12 @@ CREATE TABLE IF NOT EXISTS "working_hours" (
 CREATE INDEX idx_working_hours_id ON working_hours USING BTREE (id);
 CREATE INDEX idx_working_hours_restaurant_id ON working_hours USING BTREE (restaurant_id);
 CREATE INDEX idx_working_hours_promotion_id ON working_hours USING BTREE (promotion_id);
+
+INSERT INTO public.categories
+(id, "name", created_at, updated_at)
+VALUES
+  ('4fa44e90-80d8-4b54-bdf1-62fb6d8944de'::uuid, 'Doces', '2021-07-01 01:35:06.162', '2021-07-01 01:35:06.162'),
+  ('6a13ea88-d7e1-4cb6-944b-df2199b39bef'::uuid, 'Salgados', '2021-07-01 01:35:06.168', '2021-07-01 01:35:06.168'),
+  ('ef80a3d7-1ac7-4235-ba5c-61c4e7489a95'::uuid, 'Brasileira', '2021-07-01 01:35:06.173', '2021-07-01 01:35:06.173'),
+  ('27b566fd-e371-4897-8273-e6445367e9bd'::uuid, 'Oriental', '2021-07-01 01:35:06.177', '2021-07-01 01:35:06.177'),
+  ('da1c94ea-ce5b-4896-933b-6ff135bd57d5'::uuid, 'Mexicana', '2021-07-01 01:35:06.181', '2021-07-01 01:35:06.181');

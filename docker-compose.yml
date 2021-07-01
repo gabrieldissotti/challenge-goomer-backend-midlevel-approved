@@ -17,7 +17,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./docs/DDL.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./docs/DDL-DML.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
   development:
     image: node:14

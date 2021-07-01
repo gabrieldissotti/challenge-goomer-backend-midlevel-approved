@@ -67,7 +67,7 @@ docker run --name goomerRedis  -p 6379:6379 -d redis redis-server --bind '0.0.0.
 
 Agora vamos subir um container para a base de dados já especificando o arquivo DDL para ser executado:
 ```sh
-docker run --name goomerDatabase -e POSTGRES_PASSWORD=postgres -v ${PWD}/docs/DDL.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql -d postgres
+docker run --name goomerDatabase -e POSTGRES_PASSWORD=postgres -v ${PWD}/docs/DDL-DML.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql -d postgres
 ```
 
 E por fim, para subir o backend, na raiz do projeto execute:
@@ -95,7 +95,7 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 <img src="./docs/DER.png" />
 
-[Você pode ver o DDL clicando aqui](./docs/DDL.sql)
+[Você pode ver o DDL clicando aqui](./docs/DDL-DML.sql)
 
 ## Outras decisões técnicas
 

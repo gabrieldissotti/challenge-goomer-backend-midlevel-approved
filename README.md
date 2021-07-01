@@ -105,6 +105,10 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 - Optei por utilizar UUID's ao invés de números sequenciais porque essa é uma técnica que pode garantir um pouco mais segurança dado que seria mais difícil de descobrir os recursos da mesma natureza, são praticamente infinitos e é a melhor forma de identificar e relacionar e relacionar objetos dentre um grupo de API's ou bancos de dados distribuídos.
 
+## O que poderia melhorar
+
+- Acredito que eu deveria ter salvo os horários de funcionamento como um campo string apenas, acho que compliquei demais sem necessidade, acredito que eu só precisaria ter feito dessa forma com validações de dias da semana e horários se meu objetivo fosse trabalhar com uma agenda ou algo assim, por outro lado se fosse apenas exibir como uma descrição em um app de delivery uma simples string seria mais interessante rs 😅.
+
 ## Considerações finais
 
 Fico a disposição para tirar dúvidas e sempre estarei aberto a criticas construtivas e sugestões de melhorias, obrigado pela atenção!

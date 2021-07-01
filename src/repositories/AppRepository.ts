@@ -8,8 +8,8 @@ type ConstructorParams = {
 }
 
 class AppRepository {
-  private table: string;
-  private schema: string;
+  public table: string;
+  public schema: string;
 
   constructor ({
     table,
@@ -19,7 +19,7 @@ class AppRepository {
     this.schema = schema
   }
 
-  private async connect () {
+  public async connect () {
     const database = new Connection()
 
     const connection = await database.getConnectionInstance()
@@ -30,12 +30,14 @@ class AppRepository {
   async findAll ({
     page,
     pagesize,
-    select
+    select,
+    where
   }: FindAllParams): Promise<any> {
     const connection = await this.connect()
 
     const totalResults = await connection(this.table)
       .withSchema(this.schema)
+      .where(where || {})
       .select(connection.raw('count(id) OVER() as total'))
 
     const totalItems = Number(totalResults[0]?.total || 0)
@@ -43,6 +45,7 @@ class AppRepository {
     const results = await connection(this.table)
       .withSchema(this.schema)
       .limit(pagesize)
+      .where(where || {})
       .offset(page - 1)
       .select(select || '*')
 

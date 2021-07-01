@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
-import { ProductDTO } from '@interfaces/ProductDTO'
+import { FindAllProductsParamsDTO, FindAllProductsResponseDTO, ProductDTO } from '@interfaces/ProductDTO'
 import ProductEntity from '@entities/ProductEntity'
 import AppRepository from './AppRepository'
-
 export default class ProductRepository extends AppRepository {
   constructor () {
     const { table, schema } = ProductEntity
@@ -32,5 +31,76 @@ export default class ProductRepository extends AppRepository {
     const product = new ProductEntity(result[0])
 
     return product
+  }
+
+  public async findAllProducts ({
+    page,
+    pagesize,
+    restaurantId
+  }: FindAllProductsParamsDTO):
+    Promise<FindAllProductsResponseDTO> {
+    const connection = await this.connect()
+
+    const totalResults = await connection(this.table)
+      .withSchema(this.schema)
+      .where({
+        restaurant_id: restaurantId
+      })
+      .select(connection.raw('count(id) OVER() as total'))
+
+    const totalItems = Number(totalResults[0]?.total || 0)
+
+    if (!totalItems) {
+      return {
+        pagination: {
+          page,
+          totalPages: Math.ceil(totalItems / pagesize),
+          pagesize,
+          totalItems
+        },
+        items: []
+      }
+    }
+
+    const results = await connection(this.table)
+      .withSchema(this.schema)
+      .limit(pagesize)
+      .where({
+        'products.restaurant_id': restaurantId
+      })
+      .offset(page - 1)
+      .join(
+        'categories',
+        'categories.id',
+        'products.category_id'
+      )
+      .join(
+        'promotions',
+        'promotions.product_id',
+        'products.id'
+      )
+      .join(
+        'working_hours',
+        'working_hours.promotion_id',
+        'promotions.id'
+      )
+      .select([
+        'products.*',
+        'categories.name as category_name',
+        'promotions.description as promotion_description',
+        'promotions.price as promotion_price',
+        'working_hours.start_at as promotion_start_at',
+        'working_hours.finish_at as promotion_finish_at'
+      ])
+
+    return {
+      pagination: {
+        page,
+        totalPages: Math.ceil(totalItems / pagesize),
+        pagesize,
+        totalItems
+      },
+      items: results
+    }
   }
 }

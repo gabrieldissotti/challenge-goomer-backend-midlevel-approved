@@ -8,7 +8,7 @@ import { AddressDTO } from '@interfaces/AddressDTO'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
 import { WorkingHourToRestaurantDTO } from '@interfaces/WorkingHourDTO'
 import { weekdays } from '@utils/constants'
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 
 type ResponseDTO = RestaurantDTO & {
   address: AddressDTO

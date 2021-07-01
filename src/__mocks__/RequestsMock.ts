@@ -82,6 +82,10 @@ export default {
           }
         ]
       }
+    },
+    GET: {
+      page: 1,
+      pagesize: 2
     }
   }
 }

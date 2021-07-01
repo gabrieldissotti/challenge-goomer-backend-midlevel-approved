@@ -5,7 +5,7 @@ import AddressRepository from '@repositories/AddressRepository'
 
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
 import { AddressDTO } from '@interfaces/AddressDTO'
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
 import { Weekday } from '@interfaces/Weekday'
 import { WorkingHourToRestaurantDTO } from '@interfaces/WorkingHourDTO'

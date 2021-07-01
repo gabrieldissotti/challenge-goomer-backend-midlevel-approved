@@ -9,8 +9,44 @@ import CreateProductValidator from '@validators/CreateProductValidator'
 import ProductRepository from '@repositories/ProductRepository'
 import PromotionRepository from '@repositories/PromotionRepository'
 import UpdateProductService from '@services/UpdateProductService'
+import Redis from '@libraries/Redis'
+import { getRedisKey } from '@utils/functions'
+import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
+import ListProductsService from '@services/ListProductsService'
 
 class ProductsController {
+  public async index (request: Request, response: Response, next: NextFunction) {
+    try {
+      const queryParams = new DefaultPaginatedListValidator(request.query)
+      await queryParams.validate()
+      const expectedParams = queryParams.getExpectedParams()
+
+      const restaurantRepository = container.resolve(RestaurantRepository)
+      const productRepository = container.resolve(ProductRepository)
+
+      const listProductsService = new ListProductsService(
+        restaurantRepository,
+        productRepository
+      )
+
+      const restaurantsWithAddress = await listProductsService.execute(
+        expectedParams,
+        request.params.id
+      )
+
+      if (Redis.isReadyToUse) {
+        Redis.saveInRedis(
+          getRedisKey(request),
+          restaurantsWithAddress
+        )
+      }
+
+      return response.json(restaurantsWithAddress)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   public async store (request: Request, response: Response, next: NextFunction) {
     try {
       const bodyParams = new CreateProductValidator(request.body)

@@ -6,7 +6,7 @@ import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
 import RequestsMock from '@mocks/RequestsMock'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
 import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 
 jest.mock('@repositories/RestaurantRepository', () =>
   jest.fn().mockImplementation(() => RestaurantRepositoryMock)

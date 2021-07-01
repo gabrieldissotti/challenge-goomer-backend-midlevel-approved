@@ -2,6 +2,7 @@ export type FindAllParams = {
   select?: string;
   page: number;
   pagesize: number;
+  where?: any;
 }
 
 export type FindManyParams = {

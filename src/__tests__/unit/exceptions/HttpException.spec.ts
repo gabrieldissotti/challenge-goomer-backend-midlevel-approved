@@ -1,4 +1,4 @@
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 
 describe('HttpException Test', () => {
   it('should throw an exception with received message and status', async () => {
@@ -17,6 +17,19 @@ describe('HttpException Test', () => {
     await expect(
       async () => {
         throw new HttpException()
+      }
+    ).rejects.toMatchObject(expected)
+  })
+
+  it('should throw an exception with message as string when receives a object', async () => {
+    const expected = {
+      status: 500,
+      message: JSON.stringify({ error: 'Internal Server Error' })
+    }
+
+    await expect(
+      async () => {
+        throw new HttpException(500, { error: 'Internal Server Error' })
       }
     ).rejects.toMatchObject(expected)
   })

@@ -4,7 +4,7 @@ import AddressRepository from '@repositories/AddressRepository'
 import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
 import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
 import RequestsMock from '@mocks/RequestsMock'
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
 import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
 

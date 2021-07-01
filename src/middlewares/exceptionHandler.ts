@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 import Logger from '@libraries/Logger'
 import { env } from '@configs/app'
 

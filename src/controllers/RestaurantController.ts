@@ -49,11 +49,9 @@ class RestaurantController {
       const expectedParams = queryParams.getExpectedParams()
 
       const restaurantsRepository = container.resolve(RestaurantRepository)
-      const addressRepository = container.resolve(AddressRepository)
 
       const listRestaurantsService = new ListRestaurantsService(
-        restaurantsRepository,
-        addressRepository
+        restaurantsRepository
       )
 
       const restaurantsWithAddress = await listRestaurantsService.execute(

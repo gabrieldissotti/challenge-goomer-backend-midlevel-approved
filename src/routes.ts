@@ -22,6 +22,7 @@ routes
 routes
   .route('/restaurants/:id/products')
   .post(ProductsController.store)
+  .get(getResponseFromCacheIfExists, ProductsController.index)
 
 routes
   .route('/restaurants/:restaurantId/products/:productId')

@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import RestaurantRepository from '@repositories/RestaurantRepository'
 import AddressRepository from '@repositories/AddressRepository'
 
-import HttpException from '@libraries/HttpException'
+import HttpException from '@exceptions/HttpException'
 
 type ResponseDTO = {
   success: boolean;

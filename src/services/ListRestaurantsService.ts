@@ -1,16 +1,10 @@
 import { inject, injectable } from 'tsyringe'
 
 import RestaurantRepository from '@repositories/RestaurantRepository'
-import AddressRepository from '@repositories/AddressRepository'
 
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
-import { AddressDTO } from '@interfaces/AddressDTO'
 
-type Restaurant = RestaurantDTO & {
-  address: AddressDTO
-}
-
-type ResponseDTO = Restaurant[]
+type ResponseDTO = RestaurantDTO[]
 
 type RequestDTO = {
   page: number;
@@ -21,19 +15,16 @@ type RequestDTO = {
 class ListRestaurantsService {
   constructor (
     @inject('RestaurantRepository')
-    private restaurantRepository: RestaurantRepository,
-
-    @inject('AddressRepository')
-    private addressRepository: AddressRepository
+    private restaurantRepository: RestaurantRepository
   ) { }
 
   public async execute (paginationFilters: RequestDTO): Promise<ResponseDTO> {
-    const restaurantWithAddress: Restaurant[] =
+    const restaurants: RestaurantDTO[] =
       await this.restaurantRepository.findAll({
         ...paginationFilters
       })
 
-    return restaurantWithAddress
+    return restaurants
   }
 }
 

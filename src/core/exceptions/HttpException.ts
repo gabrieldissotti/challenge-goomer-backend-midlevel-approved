@@ -3,7 +3,7 @@ class HttpException extends Error {
   public status
   public message
 
-  constructor (status?: number, message?: string) {
+  constructor (status?: number, message?: string | any) {
     super(message)
 
     const customOrDefaultMessage = message || 'Internal Server Error'

@@ -10,6 +10,9 @@ export default class AddressEntity {
 
   public restaurantId: string;
 
+  public createdAt: Date;
+  public updatedAt: Date;
+
   constructor (result: any) {
     this.id = String(result.id)
     this.street = String(result.street)
@@ -18,5 +21,8 @@ export default class AddressEntity {
     this.neighborhood = String(result.neighborhood)
 
     this.restaurantId = String(result.restaurant_id)
+
+    this.createdAt = new Date(result.created_at)
+    this.updatedAt = new Date(result.updated_at)
   }
 }

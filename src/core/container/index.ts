@@ -3,6 +3,8 @@ import { container } from 'tsyringe'
 import AddressRepository from '@repositories/AddressRepository'
 import RestaurantRepository from '@repositories/RestaurantRepository'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
+import ProductRepository from '@repositories/ProductRepository'
+import PromotionRepository from '@repositories/PromotionRepository'
 
 container.registerSingleton<AddressRepository>(
   'AddressRepository',
@@ -17,4 +19,14 @@ container.registerSingleton<RestaurantRepository>(
 container.registerSingleton<WorkingHourRepository>(
   'WorkingHourRepository',
   WorkingHourRepository
+)
+
+container.registerSingleton<ProductRepository>(
+  'ProductRepository',
+  ProductRepository
+)
+
+container.registerSingleton<PromotionRepository>(
+  'PromotionRepository',
+  PromotionRepository
 )

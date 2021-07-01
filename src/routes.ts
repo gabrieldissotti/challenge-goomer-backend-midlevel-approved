@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import RestaurantController from './controllers/RestaurantController'
+import ProductsController from './controllers/ProductsController'
 import getResponseFromCacheIfExists from '@middlewares/getResponseFromCacheIfExists'
 
 const routes = Router()
@@ -17,5 +18,9 @@ routes
   .get(RestaurantController.show)
   .patch(RestaurantController.update)
   .delete(RestaurantController.destroy)
+
+routes
+  .route('/restaurants/:id/products')
+  .post(ProductsController.store)
 
 export default routes

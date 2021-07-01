@@ -2,7 +2,6 @@
 import { WorkingHourToRestaurantDTO, WorkingHourToPromotionDTO } from '@interfaces/WorkingHourDTO'
 import WorkingHourEntity from '@entities/WorkingHourEntity'
 import AppRepository from './AppRepository'
-import { Weekday } from '@interfaces/Weekday'
 
 export default class WorkingHourRepository extends AppRepository {
   constructor () {
@@ -30,13 +29,7 @@ export default class WorkingHourRepository extends AppRepository {
   }
 
   public async createManyToPromotion (
-    data: Array<{
-      weekday: Weekday;
-      startAt: string;
-      finishAt: string;
-      promotionId: string;
-    }>
-
+    data: WorkingHourToPromotionDTO[]
   ): Promise<WorkingHourToPromotionDTO[]> {
     const parsedData = data.map(day => ({
       weekday: day.weekday,

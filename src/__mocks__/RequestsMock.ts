@@ -69,6 +69,19 @@ export default {
           }
         ]
       }
+    },
+    PATCH: {
+      price: 10.50,
+      promotion: {
+        price: 5.25,
+        workingHours: [
+          {
+            weekday: 'sunday',
+            startAt: '12:00',
+            finishAt: '15:00'
+          }
+        ]
+      }
     }
   }
 }

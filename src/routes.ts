@@ -23,4 +23,8 @@ routes
   .route('/restaurants/:id/products')
   .post(ProductsController.store)
 
+routes
+  .route('/restaurants/:restaurantId/products/:productId')
+  .patch(ProductsController.update)
+
 export default routes

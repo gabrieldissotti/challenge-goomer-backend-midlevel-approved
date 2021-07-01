@@ -8,7 +8,7 @@ import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
 import HttpException from '@libraries/HttpException'
 import ProductRepository from '@repositories/ProductRepository'
 import PromotionRepository from '@repositories/PromotionRepository'
-import CreateProductService from '@services/CreateProductService'
+import UpdateProductService from '@services/UpdateProductService'
 import ProductRepositoryMock from '@mocks/ProductRepositoryMock'
 import PromotionRepositoryMock from '@mocks/PromotionRepositoryMock'
 
@@ -35,17 +35,20 @@ describe('Create Product Service', () => {
     const workingHourRepository = container.resolve(WorkingHourRepository)
     const promotionRepository = container.resolve(PromotionRepository)
 
-    const createProductService = new CreateProductService(
+    const updateProduct = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
       promotionRepository
     )
 
+    const mock: any = RequestsMock['/restaurants/:id/products'].PATCH
+
     await expect(
-      createProductService.execute(
-        RequestsMock['/restaurants/:id/products'].POST,
-        'restaurant-uuid'
+      updateProduct.execute(
+        mock,
+        'restaurant-uuid',
+        'product-uuid'
       )
     ).resolves.not.toThrow(Error)
   })
@@ -56,14 +59,14 @@ describe('Create Product Service', () => {
     const workingHourRepository = container.resolve(WorkingHourRepository)
     const promotionRepository = container.resolve(PromotionRepository)
 
-    const createProductService = new CreateProductService(
+    const updateProductService = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
       promotionRepository
     )
 
-    const mock = RequestsMock['/restaurants/:id/products'].POST
+    const mock: any = RequestsMock['/restaurants/:id/products'].PATCH
 
     mock.promotion.workingHours.push({
       weekday: 'sunday',
@@ -78,9 +81,10 @@ describe('Create Product Service', () => {
     })
 
     await expect(
-      createProductService.execute(
+      updateProductService.execute(
         mock,
-        'restaurant-uuid'
+        'restaurant-uuid',
+        'product-uuid'
       )
     ).rejects.toThrow(HttpException)
   })
@@ -91,14 +95,14 @@ describe('Create Product Service', () => {
     const workingHourRepository = container.resolve(WorkingHourRepository)
     const promotionRepository = container.resolve(PromotionRepository)
 
-    const createProductService = new CreateProductService(
+    const updateProductService = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
       promotionRepository
     )
 
-    const mock = RequestsMock['/restaurants/:id/products'].POST
+    const mock: any = RequestsMock['/restaurants/:id/products'].PATCH
 
     mock.promotion.workingHours.push({
       weekday: 'goomer',
@@ -107,9 +111,10 @@ describe('Create Product Service', () => {
     })
 
     await expect(
-      createProductService.execute(
+      updateProductService.execute(
         mock,
-        'restaurant-uuid'
+        'restaurant-uuid',
+        'product-uuid'
       )
     ).rejects.toThrow(HttpException)
   })
@@ -120,7 +125,7 @@ describe('Create Product Service', () => {
     const workingHourRepository = container.resolve(WorkingHourRepository)
     const promotionRepository = container.resolve(PromotionRepository)
 
-    const createProductService = new CreateProductService(
+    const updateProductService = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
@@ -130,43 +135,12 @@ describe('Create Product Service', () => {
     const { promotion, ...mockWithoutPromotion }: any = RequestsMock['/restaurants/:id/products'].POST
 
     await expect(
-      createProductService.execute(
+      updateProductService.execute(
         mockWithoutPromotion,
-        'restaurant-uuid'
+        'restaurant-uuid',
+        'product-id'
       )
     ).resolves.toHaveProperty('promotion')
-  })
-
-  it('should throw an exception when sent promotion without working hours/weekdays', async () => {
-    const restaurantRepository = container.resolve(RestaurantRepository)
-    const productRepository = container.resolve(ProductRepository)
-    const workingHourRepository = container.resolve(WorkingHourRepository)
-    const promotionRepository = container.resolve(PromotionRepository)
-
-    const createProductService = new CreateProductService(
-      restaurantRepository,
-      productRepository,
-      workingHourRepository,
-      promotionRepository
-    )
-
-    const {
-      promotion: {
-        workingHours,
-        ...promotion
-      },
-      ...product
-    }: any = RequestsMock['/restaurants/:id/products'].POST
-
-    await expect(
-      createProductService.execute(
-        {
-          ...product,
-          promotion
-        },
-        'restaurant-uuid'
-      )
-    ).rejects.toThrow(HttpException)
   })
 
   it('should throw an exception when product does not exists', async () => {
@@ -177,7 +151,7 @@ describe('Create Product Service', () => {
 
     productRepository.findOne = async () => undefined
 
-    const createProductService = new CreateProductService(
+    const updateProductService = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
@@ -187,9 +161,10 @@ describe('Create Product Service', () => {
     const mock: any = RequestsMock['/restaurants/:id/products'].POST
 
     await expect(
-      createProductService.execute(
+      updateProductService.execute(
         mock,
-        'restaurant-uuid'
+        'restaurant-uuid',
+        'product-uuid'
       )
     ).rejects.toThrow(HttpException)
   })
@@ -202,7 +177,7 @@ describe('Create Product Service', () => {
 
     restaurantRepository.findOne = async () => undefined
 
-    const createProductService = new CreateProductService(
+    const updateProductService = new UpdateProductService(
       restaurantRepository,
       productRepository,
       workingHourRepository,
@@ -212,9 +187,10 @@ describe('Create Product Service', () => {
     const mock: any = RequestsMock['/restaurants/:id/products'].POST
 
     await expect(
-      createProductService.execute(
+      updateProductService.execute(
         mock,
-        'restaurant-uuid'
+        'restaurant-uuid',
+        'product-uuid'
       )
     ).rejects.toThrow(HttpException)
   })

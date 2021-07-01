@@ -7,8 +7,8 @@ export default class WorkingHourEntity {
   public startAt: Date;
   public finishAt: Date;
 
-  public productId: string;
-  public promotionId: string;
+  public productId: string | null;
+  public promotionId: string | null;
 
   public createdAt: Date;
   public updatedAt: Date;
@@ -18,8 +18,9 @@ export default class WorkingHourEntity {
     this.weekday = String(result.weekday)
     this.startAt = new Date(result.start_at)
     this.finishAt = new Date(result.finish_at)
-    this.productId = String(result.product_id)
-    this.promotionId = String(result.promotion_id)
+
+    this.productId = result?.product_id ? String(result.product_id) : null
+    this.promotionId = result?.promotion_id ? String(result.promotion_id) : null
 
     this.createdAt = new Date(result.created_at)
     this.updatedAt = new Date(result.updated_at)

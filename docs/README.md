@@ -183,7 +183,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 - Eu poderia colocar algumas lógicas pra tornar aqueles arquivos de Mock das repositories em factories e ao adicionar alguns testes de integração usando a lib `supertest` pra fazer as requests e assim poder garantir o body que o endpoint estária retornando para o cliente.
 
-- Eu poderia ter criado algumas funções privadas pra tornar a leitura da service mais privada e isolando melhoras as responsabilidades, principalmente as services de update
+- Eu poderia ter criado algumas funções privadas pra tornar a leitura da service mais fluída e isolando melhoras as responsabilidades, principalmente as services de update
 
 ## ⌛ Tempo decorrido para execução das tarefas
 

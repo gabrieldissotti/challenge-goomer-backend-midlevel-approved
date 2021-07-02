@@ -93,7 +93,7 @@ Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e S
 Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 
-<img src="./docs/DER.png" />
+<img src="./docs/media/DER.png" />
 
 [Você pode ver o DDL clicando aqui](./docs/DDL-DML.sql)
 
@@ -105,6 +105,16 @@ Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
   - Quando a API responde com dados em cache, são adicionados os headers `cache_updated_at` e `cache_invalidation_at` para a aplicação cliente que possa se integrar saber quando esses dados foram atualizados.
 
 - Optei por utilizar UUID's ao invés de números sequenciais porque essa é uma técnica que pode garantir um pouco mais segurança dado que seria mais difícil de descobrir os recursos da mesma natureza, são praticamente infinitos e é a melhor forma de identificar e relacionar e relacionar objetos dentre um grupo de API's ou bancos de dados distribuídos.
+
+## Testes unitários
+
+Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de criar a funcionalidade.
+
+- Para gerar cobertura de testes rode `yarn test --coverage`
+
+**Cobertura de Testes**
+
+<img src="./docs/media/coverage.png" />
 
 ## O que poderia melhorar
 

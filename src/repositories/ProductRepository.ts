@@ -68,18 +68,18 @@ export default class ProductRepository extends AppRepository {
       .where({
         'products.restaurant_id': restaurantId
       })
-      .offset(page - 1)
+      .offset((page - 1) * pagesize)
       .join(
         'categories',
         'categories.id',
         'products.category_id'
       )
-      .join(
+      .leftJoin(
         'promotions',
         'promotions.product_id',
         'products.id'
       )
-      .join(
+      .leftJoin(
         'working_hours',
         'working_hours.promotion_id',
         'promotions.id'

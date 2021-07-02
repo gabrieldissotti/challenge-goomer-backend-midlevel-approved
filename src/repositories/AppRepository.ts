@@ -46,7 +46,7 @@ class AppRepository {
       .withSchema(this.schema)
       .limit(pagesize)
       .where(where || {})
-      .offset(page - 1)
+      .offset((page - 1) * pagesize)
       .select(select || '*')
 
     return {

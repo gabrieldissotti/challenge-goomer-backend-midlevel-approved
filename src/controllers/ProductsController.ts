@@ -3,6 +3,7 @@ import { container } from 'tsyringe'
 
 import RestaurantRepository from '@repositories/RestaurantRepository'
 import CreateProductService from '@services/CreateProductService'
+import DestroyProductService from '@services/DestroyProductService'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
 
 import CreateProductValidator from '@validators/CreateProductValidator'
@@ -102,6 +103,27 @@ class ProductsController {
         )
 
       return response.json(productWithPromotionAndWorkingHours)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async destroy (request: Request, response: Response, next: NextFunction) {
+    try {
+      const restaurantRepository = container.resolve(RestaurantRepository)
+      const productRepository = container.resolve(ProductRepository)
+
+      const destroyProductService = new DestroyProductService(
+        restaurantRepository,
+        productRepository
+      )
+
+      const restaurantsWithAddress = await destroyProductService.execute(
+        request.params.restaurantId,
+        request.params.productId
+      )
+
+      return response.json(restaurantsWithAddress)
     } catch (error) {
       next(error)
     }

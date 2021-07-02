@@ -27,5 +27,6 @@ routes
 routes
   .route('/restaurants/:restaurantId/products/:productId')
   .patch(ProductsController.update)
+  .delete(ProductsController.destroy)
 
 export default routes

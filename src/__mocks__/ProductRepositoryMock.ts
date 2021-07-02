@@ -82,6 +82,10 @@ class ProductRepositoryMock {
       ]
     }
   }
+
+  delete () {
+    return { success: true }
+  }
 }
 
 export default new ProductRepositoryMock()

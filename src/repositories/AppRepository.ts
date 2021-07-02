@@ -2,21 +2,16 @@ import Connection from '@database/Connection'
 import { FindAllParams, FindManyParams, FindOneParams, UpdateParams } from '@interfaces/AppRepositoryDTO'
 import { removeUndefinedKeys } from '@utils/functions'
 
-type ConstructorParams = {
-  table: string;
-  schema: string;
-}
-
 class AppRepository {
   public table: string;
   public schema: string;
 
-  constructor ({
-    table,
-    schema
-  }: ConstructorParams) {
-    this.table = table
-    this.schema = schema
+  public Entity: any;
+
+  constructor (entity: any) {
+    this.table = entity.table
+    this.schema = entity.schema
+    this.Entity = entity
   }
 
   public async connect () {
@@ -71,7 +66,7 @@ class AppRepository {
       .where(where)
       .select(select || '*')
 
-    return results
+    return results.map(item => new this.Entity(item))
   }
 
   async findOne ({
@@ -80,11 +75,13 @@ class AppRepository {
   }: FindOneParams): Promise<any> {
     const connection = await this.connect()
 
-    return connection(this.table)
+    const result = await connection(this.table)
       .withSchema(this.schema)
       .where(where)
       .select(select || '*')
       .first()
+
+    return new this.Entity(result)
   }
 
   async update ({
@@ -97,11 +94,13 @@ class AppRepository {
 
     const connection = await this.connect()
 
-    return connection(this.table)
+    const updatedItems = await connection(this.table)
       .withSchema(this.schema)
       .where(where)
       .update(sanitizedData)
       .returning('*')
+
+    return updatedItems.map(item => new this.Entity(item))
   }
 
   async delete (where: any): Promise<any> {
@@ -111,10 +110,17 @@ class AppRepository {
 
   async save (data: any, returning = null): Promise<any> {
     const connection = await this.connect()
-    return connection(this.table)
+
+    const result = await connection(this.table)
       .withSchema(this.schema)
       .insert(data)
       .returning(returning || '*')
+
+    if (result.length === 1) {
+      return new this.Entity(result[0])
+    }
+
+    return result.map(item => new this.Entity(item))
   }
 }
 

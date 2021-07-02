@@ -4,9 +4,7 @@ import ProductEntity from '@entities/ProductEntity'
 import AppRepository from './AppRepository'
 export default class ProductRepository extends AppRepository {
   constructor () {
-    const { table, schema } = ProductEntity
-
-    super({ table, schema })
+    super(ProductEntity)
   }
 
   public async create (
@@ -28,9 +26,7 @@ export default class ProductRepository extends AppRepository {
       price
     })
 
-    const product = new ProductEntity(result[0])
-
-    return product
+    return result
   }
 
   public async findAllProducts ({

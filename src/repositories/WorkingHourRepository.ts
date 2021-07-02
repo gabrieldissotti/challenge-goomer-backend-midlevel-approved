@@ -5,9 +5,7 @@ import AppRepository from './AppRepository'
 
 export default class WorkingHourRepository extends AppRepository {
   constructor () {
-    const { table, schema } = WorkingHourEntity
-
-    super({ table, schema })
+    super(WorkingHourEntity)
   }
 
   public async createManyToRestaurant (
@@ -22,10 +20,7 @@ export default class WorkingHourRepository extends AppRepository {
 
     const results = await this.save(parsedData)
 
-    const workingHours = results.map((day: any) =>
-      new WorkingHourEntity(day))
-
-    return workingHours
+    return results
   }
 
   public async createManyToPromotion (
@@ -40,9 +35,6 @@ export default class WorkingHourRepository extends AppRepository {
 
     const results = await this.save(parsedData)
 
-    const workingHours = results.map((day: any) =>
-      new WorkingHourEntity(day))
-
-    return workingHours
+    return results
   }
 }

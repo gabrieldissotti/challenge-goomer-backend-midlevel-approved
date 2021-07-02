@@ -5,9 +5,7 @@ import { PromotionDTO } from '@interfaces/PromotionDTO'
 
 export default class PromotionRepository extends AppRepository {
   constructor () {
-    const { table, schema } = PromotionEntity
-
-    super({ table, schema })
+    super(PromotionEntity)
   }
 
   public async create (
@@ -25,8 +23,6 @@ export default class PromotionRepository extends AppRepository {
       product_id: productId
     })
 
-    const product = new PromotionEntity(result[0])
-
-    return product
+    return result
   }
 }

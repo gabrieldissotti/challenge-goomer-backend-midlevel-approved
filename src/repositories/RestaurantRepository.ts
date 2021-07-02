@@ -5,9 +5,7 @@ import AppRepository from './AppRepository'
 
 export default class RestaurantRepository extends AppRepository {
   constructor () {
-    const { table, schema } = RestaurantEntity
-
-    super({ table, schema })
+    super(RestaurantEntity)
   }
 
   public async create (
@@ -23,8 +21,6 @@ export default class RestaurantRepository extends AppRepository {
       photo_url
     })
 
-    const restaurant = new RestaurantEntity(result[0])
-
-    return restaurant
+    return result
   }
 }

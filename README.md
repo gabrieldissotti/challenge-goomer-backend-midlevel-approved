@@ -122,6 +122,38 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 - Eu poderia colocar algumas lógicas pra tornar aqueles arquivos de Mock das repositories em factories e ao adicionar alguns testes de integração usando a lib `supertest` pra fazer as requests e assim poder garantir o body que o endpoint estária retornando para o cliente.
 
+## ⌛ Tempo decorrido para execução das tarefas
+
+> Tempo levado para finalizar: 21h 46min
+
+- Modelar banco de dados e gerar script de geração - 2h
+
+- Configurar estrutura do projeto (pastas, database, redis, docker) - 2h 30min
+
+- Cadastrar novos restaurantes - 2h 5min
+
+- Alterar os dados um restaurante - 2h 6min
+
+- Listar os dados de um restaurante - 1h 40min
+
+- Adicionar horário de funcionamento em restaurantes - 2h
+
+- Listar todos os restaurantes - 20min
+
+- Excluir um restaurante - 51min
+
+- Listar todos os produtos de um restaurante - 40min
+
+- Criar um produto de um restaurante - 1h
+
+- Alterar um produto de um restaurante - 1h 10min
+
+- Excluir um produto de um restaurante - 25min
+
+- Implementar melhorias e revisar código e documentação - 1h
+
+- Atualizar Readme - 2h
+
 ## Considerações finais
 
 Fico a disposição para tirar dúvidas e sempre estarei aberto a criticas construtivas e sugestões de melhorias, obrigado pela atenção!

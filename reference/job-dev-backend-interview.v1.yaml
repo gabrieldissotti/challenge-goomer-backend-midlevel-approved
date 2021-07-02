@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: job-dev-backend-interview
+  version: '1.0'
+  description: Referência da API para o desafio Goomer
+  contact:
+    name: Gabriel Dissotti
+    url: 'https://www.linkedin.com/in/gabrieldissotti/'
+    email: gabrieldnrodrigues@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'https://github.com/gabrieldissotti/job-dev-backend-interview/blob/master/LICENSE'
+servers:
+  - url: 'http://localhost:3333'
+paths:
+  /restaurants:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      totalPages:
+                        type: number
+                      pagesize:
+                        type: number
+                      totalItems:
+                        type: number
+                  items:
+                    type: array
+                    items: {}
+              examples:
+                success example:
+                  value:
+                    pagination:
+                      page: 1
+                      totalPages: 1
+                      pagesize: 10
+                      totalItems: 1
+                    items:
+                      - id: e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8
+                        name: Gabe Panquecaria
+                        photo_url: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                        created_at: '2021-07-01T22:57:23.937Z'
+                        updated_at: '2021-07-01T22:57:23.937Z'
+      operationId: get-restaurants
+      description: List restaurants
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: ''
+        - schema:
+            type: integer
+          in: query
+          name: pagesize
+components:
+  schemas: {}

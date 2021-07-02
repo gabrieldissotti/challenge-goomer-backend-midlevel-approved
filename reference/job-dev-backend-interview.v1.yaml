@@ -350,7 +350,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: List Products
       tags: []
       responses:
         '200':

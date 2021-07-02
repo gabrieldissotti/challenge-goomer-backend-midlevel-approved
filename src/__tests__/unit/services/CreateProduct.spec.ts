@@ -1,16 +1,19 @@
 import { container } from 'tsyringe'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
-import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
-import RequestsMock from '@mocks/RequestsMock'
-import WorkingHourRepository from '@repositories/WorkingHourRepository'
-import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
-import HttpException from '@exceptions/HttpException'
 import ProductRepository from '@repositories/ProductRepository'
 import PromotionRepository from '@repositories/PromotionRepository'
+import RestaurantRepository from '@repositories/RestaurantRepository'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
+
 import CreateProductService from '@services/CreateProductService'
+
+import HttpException from '@exceptions/HttpException'
+
+import RequestsMock from '@mocks/RequestsMock'
 import ProductRepositoryMock from '@mocks/ProductRepositoryMock'
 import PromotionRepositoryMock from '@mocks/PromotionRepositoryMock'
+import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
+import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
 
 jest.mock('@repositories/RestaurantRepository', () =>
   jest.fn().mockImplementation(() => RestaurantRepositoryMock)

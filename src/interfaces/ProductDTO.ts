@@ -1,6 +1,6 @@
-import { PaginationDTO, PaginationParamsDTO } from './PaginationDTO'
 import { PromotionDTO } from './PromotionDTO'
 import { WorkingHourToPromotionDTO } from './WorkingHourDTO'
+import { PaginationDTO, PaginationParamsDTO } from './PaginationDTO'
 
 export interface ProductDTO {
   id?: string;

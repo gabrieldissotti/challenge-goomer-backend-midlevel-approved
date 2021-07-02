@@ -1,5 +1,12 @@
 import Connection from '@database/Connection'
-import { FindAllParams, FindManyParams, FindOneParams, UpdateParams } from '@interfaces/AppRepositoryDTO'
+
+import {
+  FindAllParams,
+  FindManyParams,
+  FindOneParams,
+  UpdateParams
+} from '@interfaces/AppRepositoryDTO'
+
 import { removeUndefinedKeys } from '@utils/functions'
 
 class AppRepository {

@@ -1,15 +1,17 @@
 import { inject, injectable } from 'tsyringe'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
 import AddressRepository from '@repositories/AddressRepository'
-
-import { RestaurantDTO } from '@interfaces/RestaurantDTO'
-import { AddressDTO } from '@interfaces/AddressDTO'
-import HttpException from '@exceptions/HttpException'
+import RestaurantRepository from '@repositories/RestaurantRepository'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
-import { Weekday } from '@interfaces/Weekday'
-import { WorkingHourToRestaurantDTO } from '@interfaces/WorkingHourDTO'
+
+import HttpException from '@exceptions/HttpException'
+
 import { weekdays } from '@utils/constants'
+
+import { Weekday } from '@interfaces/Weekday'
+import { AddressDTO } from '@interfaces/AddressDTO'
+import { RestaurantDTO } from '@interfaces/RestaurantDTO'
+import { WorkingHourToRestaurantDTO } from '@interfaces/WorkingHourDTO'
 
 type ResponseDTO = RestaurantDTO & {
   address: AddressDTO

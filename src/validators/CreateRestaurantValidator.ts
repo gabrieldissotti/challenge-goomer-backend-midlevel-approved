@@ -1,8 +1,10 @@
 import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
-import { Weekday } from '@interfaces/Weekday'
+
 import { regexToValidateTime } from '@configs/app'
+
+import { Weekday } from '@interfaces/Weekday'
 
 class CreateRestaurantValidator {
   private schema: any;

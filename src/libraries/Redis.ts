@@ -1,7 +1,12 @@
-import { redisPort, redisHost, redisCacheDefaultDurationTime } from '@configs/app'
 import * as redis from 'redis'
+
 import Logger from '@libraries/Logger'
 
+import {
+  redisPort,
+  redisHost,
+  redisCacheDefaultDurationTime
+} from '@configs/app'
 class Redis {
   public client?: redis.RedisClient
   public logger: Logger

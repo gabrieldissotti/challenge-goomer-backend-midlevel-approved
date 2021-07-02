@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import { AddressDTO } from '@interfaces/AddressDTO'
+
 import AddressEntity from '@entities/AddressEntity'
+
 import AppRepository from './AppRepository'
 
 export default class AddressRepository extends AppRepository {

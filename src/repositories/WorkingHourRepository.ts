@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
-import { WorkingHourToRestaurantDTO, WorkingHourToPromotionDTO } from '@interfaces/WorkingHourDTO'
+import {
+  WorkingHourToRestaurantDTO,
+  WorkingHourToPromotionDTO
+} from '@interfaces/WorkingHourDTO'
+
 import WorkingHourEntity from '@entities/WorkingHourEntity'
+
 import AppRepository from './AppRepository'
 
 export default class WorkingHourRepository extends AppRepository {

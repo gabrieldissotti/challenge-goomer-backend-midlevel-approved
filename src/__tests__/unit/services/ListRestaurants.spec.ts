@@ -1,7 +1,9 @@
 import RestaurantRepository from '@repositories/RestaurantRepository'
-import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
-import RequestsMock from '@mocks/RequestsMock'
+
 import ListRestaurantsService from '@services/ListRestaurantsService'
+
+import RequestsMock from '@mocks/RequestsMock'
+import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
 
 jest.mock('@repositories/RestaurantRepository', () =>
   jest.fn().mockImplementation(() => RestaurantRepositoryMock)

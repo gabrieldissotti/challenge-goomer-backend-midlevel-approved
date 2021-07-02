@@ -1,7 +1,9 @@
 import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
+
 import { regexToValidateTime } from '@configs/app'
+
 import { WorkingHourToPromotionDTO } from '@interfaces/WorkingHourDTO'
 
 class CreateProductValidator {

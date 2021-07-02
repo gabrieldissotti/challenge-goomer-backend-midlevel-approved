@@ -1,19 +1,23 @@
 import { Request, Response, NextFunction } from 'express'
 import { container } from 'tsyringe'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
-import CreateRestaurantService from '@services/CreateRestaurantService'
-import CreateRestaurantValidator from '@validators/CreateRestaurantValidator'
-import AddressRepository from '@repositories/AddressRepository'
-import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
-import ListRestaurantsService from '@services/ListRestaurantsService'
-import { getRedisKey } from '@utils/functions'
 import Redis from '@libraries/Redis'
-import ShowRestaurantService from '@services/ShowRestaurantService'
-import UpdateRestaurantValidator from '@validators/UpdateRestaurantValidator'
-import UpdateRestaurantService from '@services/UpdateRestaurantService'
-import DestroyRestaurantService from '@services/DestroyRestaurantService'
+
+import AddressRepository from '@repositories/AddressRepository'
+import RestaurantRepository from '@repositories/RestaurantRepository'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
+
+import ShowRestaurantService from '@services/ShowRestaurantService'
+import ListRestaurantsService from '@services/ListRestaurantsService'
+import UpdateRestaurantService from '@services/UpdateRestaurantService'
+import CreateRestaurantService from '@services/CreateRestaurantService'
+import DestroyRestaurantService from '@services/DestroyRestaurantService'
+
+import CreateRestaurantValidator from '@validators/CreateRestaurantValidator'
+import UpdateRestaurantValidator from '@validators/UpdateRestaurantValidator'
+import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
+
+import { getRedisKey } from '@utils/functions'
 
 class RestaurantController {
   public async store (request: Request, response: Response, next: NextFunction) {

@@ -1,6 +1,12 @@
 /* eslint-disable camelcase */
-import { FindAllProductsParamsDTO, FindAllProductsResponseDTO, ProductDTO } from '@interfaces/ProductDTO'
+import {
+  FindAllProductsParamsDTO,
+  FindAllProductsResponseDTO,
+  ProductDTO
+} from '@interfaces/ProductDTO'
+
 import ProductEntity from '@entities/ProductEntity'
+
 import AppRepository from './AppRepository'
 export default class ProductRepository extends AppRepository {
   constructor () {

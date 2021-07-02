@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
+
 import { paginationDefault } from '@configs/app'
 
 class DefaultPaginatedListValidator {

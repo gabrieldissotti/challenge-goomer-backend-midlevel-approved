@@ -1,17 +1,19 @@
 /* eslint-disable camelcase */
 import { inject, injectable } from 'tsyringe'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
-
-import { RestaurantDTO } from '@interfaces/RestaurantDTO'
-import WorkingHourRepository from '@repositories/WorkingHourRepository'
-import { WorkingHourToPromotionDTO } from '@interfaces/WorkingHourDTO'
-import { weekdays } from '@utils/constants'
-import HttpException from '@exceptions/HttpException'
 import ProductRepository from '@repositories/ProductRepository'
+import PromotionRepository from '@repositories/PromotionRepository'
+import RestaurantRepository from '@repositories/RestaurantRepository'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
+
+import HttpException from '@exceptions/HttpException'
+
+import { weekdays } from '@utils/constants'
+
 import { ProductDTO } from '@interfaces/ProductDTO'
 import { PromotionDTO } from '@interfaces/PromotionDTO'
-import PromotionRepository from '@repositories/PromotionRepository'
+import { RestaurantDTO } from '@interfaces/RestaurantDTO'
+import { WorkingHourToPromotionDTO } from '@interfaces/WorkingHourDTO'
 
 type ResponseDTO = ProductDTO & {
   promotion?: null | PromotionDTO & {

@@ -1,11 +1,12 @@
 import { inject, injectable } from 'tsyringe'
 
 import RestaurantRepository from '@repositories/RestaurantRepository'
+import ProductRepository from '@repositories/ProductRepository'
+
+import HttpException from '@exceptions/HttpException'
 
 import { FindAllProductsResponseDTO } from '@interfaces/ProductDTO'
-import ProductRepository from '@repositories/ProductRepository'
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
-import HttpException from '@exceptions/HttpException'
 
 type RequestDTO = {
   page: number;

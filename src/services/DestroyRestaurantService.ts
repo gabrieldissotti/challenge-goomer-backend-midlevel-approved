@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
 import AddressRepository from '@repositories/AddressRepository'
+import RestaurantRepository from '@repositories/RestaurantRepository'
 
 import HttpException from '@exceptions/HttpException'
 

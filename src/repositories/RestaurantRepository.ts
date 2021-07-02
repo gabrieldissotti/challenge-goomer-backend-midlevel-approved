@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import { RestaurantDTO } from '@interfaces/RestaurantDTO'
+
 import RestaurantEntity from '@entities/RestaurantEntity'
+
 import AppRepository from './AppRepository'
 
 export default class RestaurantRepository extends AppRepository {

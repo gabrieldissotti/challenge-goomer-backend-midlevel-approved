@@ -1,11 +1,12 @@
 import { inject, injectable } from 'tsyringe'
 
+import ProductRepository from '@repositories/ProductRepository'
 import RestaurantRepository from '@repositories/RestaurantRepository'
 
-import { ProductDTO } from '@interfaces/ProductDTO'
-import ProductRepository from '@repositories/ProductRepository'
-import { RestaurantDTO } from '@interfaces/RestaurantDTO'
 import HttpException from '@exceptions/HttpException'
+
+import { ProductDTO } from '@interfaces/ProductDTO'
+import { RestaurantDTO } from '@interfaces/RestaurantDTO'
 
 type ResponseDTO = {
   success: boolean

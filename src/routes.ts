@@ -1,7 +1,8 @@
 import { Router } from 'express'
 
-import RestaurantController from './controllers/RestaurantController'
 import ProductsController from './controllers/ProductsController'
+import RestaurantController from './controllers/RestaurantController'
+
 import getResponseFromCacheIfExists from '@middlewares/getResponseFromCacheIfExists'
 
 const routes = Router()

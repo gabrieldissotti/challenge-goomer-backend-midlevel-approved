@@ -1,10 +1,13 @@
-import RestaurantRepository from '@repositories/RestaurantRepository'
 import AddressRepository from '@repositories/AddressRepository'
-import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
-import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
-import ShowRestaurantService from '@services/ShowRestaurantService'
-import HttpException from '@exceptions/HttpException'
+import RestaurantRepository from '@repositories/RestaurantRepository'
 import WorkingHourRepository from '@repositories/WorkingHourRepository'
+
+import ShowRestaurantService from '@services/ShowRestaurantService'
+
+import HttpException from '@exceptions/HttpException'
+
+import AddressRepositoryMock from '@mocks/AddressRepositoryMock'
+import RestaurantRepositoryMock from '@mocks/RestaurantRepositoryMock'
 import WorkingHourRepositoryMock from '@mocks/WorkingHourRepositoryMock'
 
 jest.mock('@repositories/RestaurantRepository', () =>

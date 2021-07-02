@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import PromotionEntity from '@entities/PromotionEntity'
-import AppRepository from './AppRepository'
+
 import { PromotionDTO } from '@interfaces/PromotionDTO'
 
+import AppRepository from './AppRepository'
 export default class PromotionRepository extends AppRepository {
   constructor () {
     super(PromotionEntity)

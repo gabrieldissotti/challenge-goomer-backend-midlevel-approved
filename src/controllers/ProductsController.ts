@@ -1,20 +1,22 @@
-import { Request, Response, NextFunction } from 'express'
 import { container } from 'tsyringe'
+import { Request, Response, NextFunction } from 'express'
 
-import RestaurantRepository from '@repositories/RestaurantRepository'
-import CreateProductService from '@services/CreateProductService'
-import DestroyProductService from '@services/DestroyProductService'
-import WorkingHourRepository from '@repositories/WorkingHourRepository'
+import Redis from '@libraries/Redis'
 
-import CreateProductValidator from '@validators/CreateProductValidator'
 import ProductRepository from '@repositories/ProductRepository'
 import PromotionRepository from '@repositories/PromotionRepository'
-import UpdateProductService from '@services/UpdateProductService'
-import Redis from '@libraries/Redis'
-import { getRedisKey } from '@utils/functions'
-import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
-import ListProductsService from '@services/ListProductsService'
+import RestaurantRepository from '@repositories/RestaurantRepository'
+import WorkingHourRepository from '@repositories/WorkingHourRepository'
 
+import ListProductsService from '@services/ListProductsService'
+import UpdateProductService from '@services/UpdateProductService'
+import CreateProductService from '@services/CreateProductService'
+import DestroyProductService from '@services/DestroyProductService'
+
+import CreateProductValidator from '@validators/CreateProductValidator'
+import DefaultPaginatedListValidator from '@validators/DefaultPaginatedListValidator'
+
+import { getRedisKey } from '@utils/functions'
 class ProductsController {
   public async index (request: Request, response: Response, next: NextFunction) {
     try {

@@ -1,8 +1,11 @@
 import * as yup from 'yup'
 
 import HttpValidatorException from '@exceptions/HttpValidatorException'
-import { removeUndefinedKeys } from '@utils/functions'
+
 import { regexToValidateTime } from '@configs/app'
+
+import { removeUndefinedKeys } from '@utils/functions'
+
 import { Weekday } from '@interfaces/Weekday'
 
 class UpdateRestaurantValidator {

@@ -86,6 +86,61 @@ Eu geralmente gosto de documentar minhas API's na plataforma stoplight.io, entã
 
 Vou deixar esses links para que você possa baixar o [arquivo de collection para Postman](./docs/postman.collection.json) ou [o arquivo para Insomnia](./docs/insomnia.collection.json) para fazer as requests à API localmente caso deseje. Você pode importar esses arquivos no programa correspondente e já deixei alguns payloads prontos para você usar.
 
+## Arquitetura do projeto
+
+Em resumo, segue uma imagem exibindo o fluxo da requisição pelas camadas da aplicação:
+
+
+![Arquitetura](./docs/media/architecture.png)
+
+A seguir será detalhado a responsabilidade de cada camada da aplicação.
+
+### __tests__
+Unidade onde criamos todos os arquivos de teste do projeto.
+
+### @types
+Para sobrescrever interfaces que já existem, como a Request do express, podem ser criados arquivos *.d.ts dentro dessa pasta.
+
+### Configs
+É a camada onde definimos tudo que é parametrizável da API, facilitando encontrar essas configurações caso seja necessário para manutenir a aplicação.
+
+### Container
+É onde estão as "referências" das classes para serem utilizadas na injeção de dependência nas services. Quando forem adicionadas novas classes com injeção de dependência, devem ser mapeadas aqui. Para injeção de dependência utilizamos a biblioteca tsyringe.
+
+### Controllers
+Camada de domínio que tem apenas a responsabilidade de receber a requisição, encaminhar para outra camada lidar e devolver a resposta para o cliente;
+
+### Database
+Camada responsável por fazer a conexão com o banco de dados.
+
+### Entities
+Camada onde ficam as entidades ou models, utilizadas pelo TypeORM para mapear as relações existentes.
+
+### Exceptions
+Camada onde são definidas as classes de exceções usadas no projeto para padronizar erros HTTP e outros erros internos.
+
+### Libraries
+São bibliotecas com o objetivo de isolar responsabilidades diferentes como exibir logs padronizados, consumir API's ou SDK's.
+
+### Middlewares
+São interceptadores de requisições, usados para abstrair lógicas que são úteis para a maioria dos fluxos de requisição.
+
+### Repositories
+Camada com a responsabilidade de manter toda a abstração de consultas ao banco de dados
+
+
+### Services
+Onde se encontra todas as regras de negócio.
+
+### Utils
+Pasta que contem as constantes, enums e funções comuns úteis para qualquer parte do projeto
+
+### Validators
+Camada com objetivo de validar os dados recebidos de um payload, query string ou path params para garantir a integridade das informações enviadas pelo cliente.
+
+### Routes
+Local onde definimos as rotas (paths) do domínio e referênciamos a qual controller devemos encaminhar a requisição.
+
 ## Banco de dados e modelagem
 
 Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e SQL Server), eu optei em usar o Postgres porque:

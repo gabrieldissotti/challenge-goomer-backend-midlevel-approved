@@ -114,7 +114,7 @@ Camada de domínio que tem apenas a responsabilidade de receber a requisição, 
 Camada responsável por fazer a conexão com o banco de dados.
 
 ### Entities
-Camada onde ficam as entidades ou models, utilizadas pelo TypeORM para mapear as relações existentes.
+Camada onde ficam as entidades ou models, utilizadas pelas repositories para mapear as relações existentes.
 
 ### Exceptions
 Camada onde são definidas as classes de exceções usadas no projeto para padronizar erros HTTP e outros erros internos.

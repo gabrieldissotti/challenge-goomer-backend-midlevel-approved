@@ -225,4 +225,4 @@ Contato: gabrieldnrodrigues@gmail.com
 
 Linkedin: https://www.linkedin.com/in/gabrieldissotti/
 
-> Algumas pessoas com quem trabalhei recentemente comentaram sobre a experiência que tiveram em trabalhar comigo, vale dar uma olhada lá 😀
+> Algumas pessoas com quem trabalhei recentemente comentaram no meu linkedin sobre a experiência que tiveram em trabalhar comigo, vale dar uma olhada lá 😀

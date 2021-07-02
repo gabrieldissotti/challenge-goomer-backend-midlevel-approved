@@ -1,0 +1,220 @@
+{
+	"variables": [],
+	"info": {
+		"name": "job-dev-backend-interview",
+		"_postman_id": "5bf24716-8d19-8cac-7c74-1c96dc005ceb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products of Restaurants",
+			"description": "",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"url": {
+							"raw": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8/products?page=1&pagesize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"restaurants",
+								"e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "pagesize",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"url": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8/products",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Coxinha de frango com catupiry\",\r\n  \"photoUrl\": \"https://avatars.githubusercontent.com/u/33178519?v=4\",\r\n\t\"price\": 10.50,\r\n\t\"categoryId\": \"4fa44e90-80d8-4b54-bdf1-62fb6d8944de\",\r\n\t\"promotion\": {\r\n\t\t\"description\": \"50% de desconto, sabadou e domingou\",\r\n\t\t\"price\": 5.25,\r\n\t\t\"workingHours\": [\r\n\t\t\t{\r\n\t\t\t\t\"weekday\": \"sunday\",\r\n\t\t\t\t\"startAt\": \"13:00\",\r\n\t\t\t\t\"finishAt\": \"18:00\"\r\n\t\t\t}\r\n\t\t]\r\n\t}\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"url": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8/products/a150b87d-16ef-4114-a596-9ffce1c66641",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Coxinha de frango com catupiry\",\r\n  \"photoUrl\": \"https://avatars.githubusercontent.com/u/33178519?v=4\",\r\n\t\"price\": 6,\r\n\t\"categoryId\": \"4fa44e90-80d8-4b54-bdf1-62fb6d8944de\",\r\n\t\"promotion\": {\r\n\t\t\"description\": \"50% de desconto, sabadou e domingou\",\r\n\t\t\"price\": 2,\r\n\t\t\"workingHours\": [\r\n\t\t\t{\r\n\t\t\t\t\"weekday\": \"sunday\",\r\n\t\t\t\t\"startAt\": \"15:00\",\r\n\t\t\t\t\"finishAt\": \"18:00\"\r\n\t\t\t}\r\n\t\t]\r\n\t}\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"url": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8/products/abb85ee9-40cd-4701-aed8-1be254ab1c1a",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"description": "",
+			"item": [
+				{
+					"name": "List Restaurants",
+					"request": {
+						"url": {
+							"raw": "http://localhost:3333/restaurants/?page=1&pagesize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"restaurants",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "pagesize",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Restaurant",
+					"request": {
+						"url": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"url": "http://localhost:3333/restaurants",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Gabe Panquecaria\",\r\n  \"photoUrl\": \"https://avatars.githubusercontent.com/u/33178519?v=4\",\r\n\t\"address\": {\r\n\t\t\"street\": \"Rua Voluntários da Patria\",\r\n    \"number\": \"371\",\r\n    \"postalCode\": \"18060005\",\r\n    \"neighborhood\": \"Vila Carvalho\"\r\n\t},\r\n\t\"workingHours\": [\r\n\t\t{\r\n\t\t\t\"weekday\": \"sunday\",\r\n\t\t\t\"startAt\": \"13:00\",\r\n\t\t\t\"finishAt\": \"18:00\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"weekday\": \"saturday\",\r\n\t\t\t\"startAt\": \"19:00\",\r\n\t\t\t\"finishAt\": \"23:58\"\r\n\t\t}\r\n\t]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Restaurant",
+					"request": {
+						"url": "http://localhost:3333/restaurants/9a597d69-cecd-410a-a294-53cfa65dd414",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Gabe Panquecaria\",\r\n\t\"address\": {\r\n\t\t\"street\": \"Voluntários da Pátria\"\r\n\t},\r\n\t\"workingHours\": [\r\n\t\t{\r\n\t\t\t\"weekday\": \"sunday\",\r\n\t\t\t\"startAt\": \"08:00\",\r\n\t\t\t\"finishAt\": \"10:00\"\r\n\t\t}\r\n\t]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Restaurant",
+					"request": {
+						"url": "http://localhost:3333/restaurants/e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

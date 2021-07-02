@@ -54,6 +54,17 @@ paths:
                         photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
                         createdAt: '2021-07-01T22:57:23.937Z'
                         updatedAt: '2021-07-01T22:57:23.937Z'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
       operationId: get-restaurants
       description: List restaurants
       parameters:
@@ -320,6 +331,17 @@ paths:
                   value:
                     status: 404
                     message: Restaurant not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
   '/restaurants/{restaurantId}/products':
     parameters:
       - schema:
@@ -398,6 +420,17 @@ paths:
                   value:
                     status: 404
                     message: Restaurant not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
       operationId: get-restaurants-restaurantId-products
     post:
       summary: ''

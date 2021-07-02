@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductAndRelationships'
+                $ref: '#/components/schemas/RestaurantAndRelationShips'
               examples:
                 example-1:
                   value:
@@ -144,7 +144,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateOrUpdateProduct'
+              $ref: '#/components/schemas/CreateOrUpdateRestaurant'
         description: ''
   '/restaurants/{id}':
     parameters:
@@ -162,7 +162,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductAndRelationships'
+                $ref: '#/components/schemas/RestaurantAndRelationShips'
               examples:
                 success example:
                   value:
@@ -212,6 +212,17 @@ paths:
                   value:
                     status: 400
                     message: promotion.price is a required field
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 404
+                    message: Restaurant not found
         '500':
           description: Internal Server Error
           content:
@@ -224,6 +235,372 @@ paths:
                     status: 500
                     message: Internal Server Error
       operationId: get-restaurants-id
+    patch:
+      summary: ''
+      operationId: patch-restaurants-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantAndRelationShips'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                invalid weekday:
+                  value:
+                    status: 400
+                    message: weekday sundays does not exists
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 404
+                    message: Restaurant not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                internal server error:
+                  value:
+                    status: 500
+                    message: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateRestaurant'
+            examples:
+              example:
+                value:
+                  name: Gabe Panquecaria
+                  address:
+                    street: Voluntários da Pátria
+                  workingHours:
+                    - weekday: sunday
+                      startAt: '08:00'
+                      finishAt: '10:00'
+        description: ''
+    delete:
+      summary: ''
+      operationId: delete-restaurants-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              examples:
+                example: {}
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 404
+                    message: Restaurant not found
+  '/restaurants/{restaurantId}/products':
+    parameters:
+      - schema:
+          type: string
+        name: restaurantId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      totalPages:
+                        type: number
+                      pagesize:
+                        type: number
+                      totalItems:
+                        type: number
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductAndRelationships'
+              examples:
+                example:
+                  value:
+                    id: 35b3285e-2644-46fd-9235-48cb779a5d53
+                    name: Coxinha de frango com catupiry
+                    photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                    price: 10.5
+                    categoryId: 4fa44e90-80d8-4b54-bdf1-62fb6d8944de
+                    restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+                    createdAt: '2021-07-02T06:38:49.939Z'
+                    updatedAt: '2021-07-02T06:38:49.939Z'
+                    promotion:
+                      id: ea1617f1-b250-4e57-af68-0a399d3ce0d8
+                      description: '50% de desconto, sabadou e domingou'
+                      price: 5.25
+                      createdAt: '2021-07-02T06:38:49.956Z'
+                      updatedAt: '2021-07-02T06:38:49.956Z'
+                      workingHours:
+                        - id: f35bab0e-2467-4353-bf23-730855b8915c
+                          weekday: sunday
+                          startAt: '13:00:00'
+                          finishAt: '18:00:00'
+                          restaurantId: null
+                          promotionId: ea1617f1-b250-4e57-af68-0a399d3ce0d8
+                          createdAt: '2021-07-02T06:38:49.971Z'
+                          updatedAt: '2021-07-02T06:38:49.971Z'
+                        - id: 09792d8c-fb02-49b0-83f4-9cfdcfd6c66e
+                          weekday: saturday
+                          startAt: '19:00:00'
+                          finishAt: '23:58:00'
+                          restaurantId: null
+                          promotionId: ea1617f1-b250-4e57-af68-0a399d3ce0d8
+                          createdAt: '2021-07-02T06:38:49.971Z'
+                          updatedAt: '2021-07-02T06:38:49.971Z'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 404
+                    message: Restaurant not found
+      operationId: get-restaurants-restaurantId-products
+    post:
+      summary: ''
+      operationId: post-restaurants-restaurantId-products
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductAndRelationships'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                cant create promotion without working hours:
+                  value:
+                    status: 400
+                    message: Promotion cant be created without working hours/weekdays
+                invalid weekday:
+                  value:
+                    status: 400
+                    message: weekday 22 does not exists
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateProduct'
+            examples:
+              example:
+                value:
+                  name: Coxinha de frango com catupiry
+                  photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                  price: 10.5
+                  categoryId: 4fa44e90-80d8-4b54-bdf1-62fb6d8944de
+                  promotion:
+                    description: '50% de desconto, sabadou e domingou'
+                    price: 5.25
+                    workingHours:
+                      - weekday: sunday
+                        startAt: '13:00'
+                        finishAt: '18:00'
+                      - weekday: saturday
+                        startAt: '19:00'
+                        finishAt: '23:58'
+        description: ''
+  '/restaurants/{restaurantId}/products/{productId}':
+    parameters:
+      - schema:
+          type: string
+        name: restaurantId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: productId
+        in: path
+        required: true
+    patch:
+      summary: ''
+      operationId: patch-restaurants-restaurantId-products-productId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductAndRelationships'
+              examples:
+                example:
+                  value:
+                    id: 009f0ba1-a8db-4d48-b92a-faf819056fe8
+                    name: Coxinha de frango com catupiry
+                    photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                    price: 10.5
+                    categoryId: 4fa44e90-80d8-4b54-bdf1-62fb6d8944de
+                    restaurantId: c3d33a00-d97a-4e25-afbd-6a08f4f34c42
+                    createdAt: '2021-07-02T07:00:40.688Z'
+                    updatedAt: '2021-07-02T07:00:40.688Z'
+                    promotion:
+                      id: 8514b5d0-bbb1-429f-b266-3ecec9b921bb
+                      description: '50% de desconto, sabadou e domingou'
+                      price: 5.25
+                      createdAt: '2021-07-02T07:00:40.710Z'
+                      updatedAt: '2021-07-02T07:00:40.710Z'
+                      workingHours:
+                        - id: c72e6e4e-570d-4627-86b5-c832e89338fa
+                          weekday: sunday
+                          startAt: '13:00:00'
+                          finishAt: '18:00:00'
+                          restaurantId: null
+                          promotionId: 8514b5d0-bbb1-429f-b266-3ecec9b921bb
+                          createdAt: '2021-07-02T07:00:40.731Z'
+                          updatedAt: '2021-07-02T07:00:40.731Z'
+                        - id: 3c8fe0c6-868a-4868-9d45-2167b218b0d1
+                          weekday: saturday
+                          startAt: '19:00:00'
+                          finishAt: '23:58:00'
+                          restaurantId: null
+                          promotionId: 8514b5d0-bbb1-429f-b266-3ecec9b921bb
+                          createdAt: '2021-07-02T07:00:40.731Z'
+                          updatedAt: '2021-07-02T07:00:40.731Z'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                restaurant not found:
+                  value:
+                    status: 404
+                    message: Restaurant not found
+                product not found:
+                  value:
+                    status: 404
+                    message: Product not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateProduct'
+            examples:
+              example:
+                value:
+                  name: Coxinha de frango com catupiry
+                  photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                  price: 6
+                  categoryId: 4fa44e90-80d8-4b54-bdf1-62fb6d8944de
+                  promotion:
+                    description: '50% de desconto, sabadou e domingou'
+                    price: 2
+                    workingHours:
+                      - weekday: sunday
+                        startAt: '15:00'
+                        finishAt: '18:00'
+    delete:
+      summary: ''
+      operationId: delete-restaurants-restaurantId-products-productId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                restaurant not found:
+                  value:
+                    status: 404
+                    message: Restaurant not found
+                product not found:
+                  value:
+                    status: 404
+                    message: Product not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpException'
+              examples:
+                example:
+                  value:
+                    status: 500
+                    message: Internal Server Error
+        '':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              examples:
+                example: {}
 components:
   schemas:
     Address:
@@ -435,3 +812,123 @@ components:
                     type:
                       - string
                       - 'null'
+    RestaurantAndRelationShips:
+      title: RestaurantAndRelationShips
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        photoUrl:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        workingHours:
+          type:
+            - string
+            - array
+          items:
+            $ref: '#/components/schemas/WorkingHour'
+      x-examples:
+        example:
+          id: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+          name: Gabe Panquecaria
+          photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+          createdAt: '2021-07-02T06:36:14.072Z'
+          updatedAt: '2021-07-02T06:36:14.072Z'
+          address:
+            id: a737f575-f535-4177-abdf-4083149fbee3
+            street: Rua Voluntários da Patria
+            number: '371'
+            postalCode: '18060005'
+            neighborhood: Vila Carvalho
+            restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+            createdAt: '2021-07-02T06:36:14.091Z'
+            updatedAt: '2021-07-02T06:36:14.091Z'
+          workingHours:
+            - id: 86d33a14-7784-4af4-93e2-11a0c90daaed
+              weekday: sunday
+              startAt: '13:00:00'
+              finishAt: '18:00:00'
+              restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+              promotionId: null
+              createdAt: '2021-07-02T06:36:14.110Z'
+              updatedAt: '2021-07-02T06:36:14.110Z'
+            - id: 0b36d716-2619-49dc-93d6-86f443d1e042
+              weekday: saturday
+              startAt: '19:00:00'
+              finishAt: '23:58:00'
+              restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+              promotionId: null
+              createdAt: '2021-07-02T06:36:14.110Z'
+              updatedAt: '2021-07-02T06:36:14.110Z'
+    CreateOrUpdateRestaurant:
+      title: CreateOrUpdateRestaurant
+      type: object
+      properties:
+        name:
+          type: string
+        photoUrl:
+          type: string
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            number:
+              type: string
+            postalCode:
+              type: string
+            neighborhood:
+              type: string
+        workingHours:
+          type:
+            - string
+            - array
+          items:
+            type: object
+            properties:
+              weekday:
+                type: string
+              startAt:
+                type: string
+              finishAt:
+                type: string
+      x-examples:
+        example:
+          id: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+          name: Gabe Panquecaria
+          photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+          createdAt: '2021-07-02T06:36:14.072Z'
+          updatedAt: '2021-07-02T06:36:14.072Z'
+          address:
+            id: a737f575-f535-4177-abdf-4083149fbee3
+            street: Rua Voluntários da Patria
+            number: '371'
+            postalCode: '18060005'
+            neighborhood: Vila Carvalho
+            restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+            createdAt: '2021-07-02T06:36:14.091Z'
+            updatedAt: '2021-07-02T06:36:14.091Z'
+          workingHours:
+            - id: 86d33a14-7784-4af4-93e2-11a0c90daaed
+              weekday: sunday
+              startAt: '13:00:00'
+              finishAt: '18:00:00'
+              restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+              promotionId: null
+              createdAt: '2021-07-02T06:36:14.110Z'
+              updatedAt: '2021-07-02T06:36:14.110Z'
+            - id: 0b36d716-2619-49dc-93d6-86f443d1e042
+              weekday: saturday
+              startAt: '19:00:00'
+              finishAt: '23:58:00'
+              restaurantId: b82b5d00-a733-4ed3-9a4c-b79c2d4a9206
+              promotionId: null
+              createdAt: '2021-07-02T06:36:14.110Z'
+              updatedAt: '2021-07-02T06:36:14.110Z'

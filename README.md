@@ -150,7 +150,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 - Excluir um produto de um restaurante - 25min
 
-- Implementar melhorias e revisar código e documentação - 1h
+- Implementar melhorias e revisar código e documentação - 3h
 
 - Atualizar Readme - 2h
 

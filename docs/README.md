@@ -18,7 +18,7 @@ Requisitos de ambiente:
 
 Após instalar os pré-requisitos, na raiz do projeto você pode rodar o seguinte comando para subir a aplicação:
 
-```sh
+```shell
 docker compose up development
 ```
 > Aguarde o container subir e pronto, você já pode acessar a aplicação em: http://localhost:3333 😀
@@ -54,24 +54,24 @@ Essa é pra quem gosta de ativar o modo raiz nível 4 😅 ou pra quando houver 
 
 Primeiro precisaremos fazer a build da imagem, pra isso rode:
 
-```sh
+```shell
 docker build --file Dockerfile --tag backend --target back_development .
 ```
 
 Opcionalmente você pode subir uma instância de redis com o seguinte comando:
-```sh
+```shell
 docker run --name goomerRedis  -p 6379:6379 -d redis redis-server --bind '0.0.0.0'
 ```
 
 > Caso você não suba essa instância a aplicação funcionará normalmente, porém sem os benefícios na velocidade da resposta da API com cache.
 
 Agora vamos subir um container para a base de dados já especificando o arquivo DDL para ser executado:
-```sh
+```shell
 docker run --name goomerDatabase -e POSTGRES_PASSWORD=postgres -v ${PWD}/docs/DDL-DML.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql -d postgres
 ```
 
 E por fim, para subir o backend, na raiz do projeto execute:
-```sh
+```shell
 docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HOST=host.docker.internal -e DATABASE_HOST=host.docker.internal -e NODE_ENV=development backend
 ```
 

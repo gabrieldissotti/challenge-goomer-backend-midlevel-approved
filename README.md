@@ -18,7 +18,7 @@ Requisitos de ambiente:
 
 Após instalar os pré-requisitos, na raiz do projeto você pode rodar o seguinte comando para subir a aplicação:
 
-```sh
+```shell
 docker compose up development
 ```
 > Aguarde o container subir e pronto, você já pode acessar a aplicação em: http://localhost:3333 😀
@@ -54,24 +54,24 @@ Essa é pra quem gosta de ativar o modo raiz nível 4 😅 ou pra quando houver 
 
 Primeiro precisaremos fazer a build da imagem, pra isso rode:
 
-```sh
+```shell
 docker build --file Dockerfile --tag backend --target back_development .
 ```
 
 Opcionalmente você pode subir uma instância de redis com o seguinte comando:
-```sh
+```shell
 docker run --name goomerRedis  -p 6379:6379 -d redis redis-server --bind '0.0.0.0'
 ```
 
 > Caso você não suba essa instância a aplicação funcionará normalmente, porém sem os benefícios na velocidade da resposta da API com cache.
 
 Agora vamos subir um container para a base de dados já especificando o arquivo DDL para ser executado:
-```sh
+```shell
 docker run --name goomerDatabase -e POSTGRES_PASSWORD=postgres -v ${PWD}/docs/DDL-DML.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql -d postgres
 ```
 
 E por fim, para subir o backend, na raiz do projeto execute:
-```sh
+```shell
 docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HOST=host.docker.internal -e DATABASE_HOST=host.docker.internal -e NODE_ENV=development backend
 ```
 
@@ -84,7 +84,7 @@ docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HO
 
 Eu geralmente gosto de documentar minhas API's na plataforma stoplight.io, então vou deixar aqui o [link pra acessar a referência da API online](https://qualtrics.stoplight.io/docs/gh/gabrieldissotti/job-dev-backend-interview).
 
-Vou deixar esses links para que você possa baixar o <a href="./docs/postman.collection.json" download>arquivo de collection para Postman</a> ou <a href="./docs/insomnia.collection.json" download>o arquivo para Insomnia</a> para fazer as requests à API localmente caso deseje. Você pode importar esses arquivos no programa correspondente e já deixei alguns payloads prontos para você usar.
+Vou deixar esses links para que você possa baixar o [arquivo de collection para Postman](./docs/postman.collection.json) ou [o arquivo para Insomnia](./docs/insomnia.collection.json) para fazer as requests à API localmente caso deseje. Você pode importar esses arquivos no programa correspondente e já deixei alguns payloads prontos para você usar.
 
 ## Banco de dados e modelagem
 
@@ -99,7 +99,7 @@ Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e S
 Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 
-<img src="./docs/media/DER.png" />
+![Diagrama Entidade Relacionamento](./docs/media/DER.png)
 
 [Você pode ver o DDL clicando aqui](./docs/DDL-DML.sql)
 
@@ -120,7 +120,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 **Cobertura de Testes**
 
-<img src="./docs/media/coverage.png" />
+![Cobertura de testes](./docs/media/coverage.png)
 
 ## O que poderia melhorar
 

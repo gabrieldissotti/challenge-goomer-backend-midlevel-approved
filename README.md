@@ -130,7 +130,7 @@ Camada com a responsabilidade de manter toda a abstração de consultas ao banco
 
 
 ### Services
-Onde se encontra todas as regras de negócio.
+Onde se encontra todas as regras de negócio. Segui os padrões do Service Pattern do Domain-driven Design (DDD) quando criei services com uma única função publica `execute()` com a finalidade de isolar responsabilidades.
 
 ### Utils
 Pasta que contem as constantes, enums e funções comuns úteis para qualquer parte do projeto
@@ -183,9 +183,11 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 - Eu poderia colocar algumas lógicas pra tornar aqueles arquivos de Mock das repositories em factories e ao adicionar alguns testes de integração usando a lib `supertest` pra fazer as requests e assim poder garantir o body que o endpoint estária retornando para o cliente.
 
+- Eu poderia ter criado algumas funções privadas pra tornar a leitura da service mais privada e isolando melhoras as responsabilidades, principalmente as services de update
+
 ## ⌛ Tempo decorrido para execução das tarefas
 
-> Tempo levado para finalizar: 21h 46min
+> Tempo levado para finalizar: 22h 46min
 
 - Modelar banco de dados e gerar script de geração - 2h
 
@@ -211,7 +213,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 - Excluir um produto de um restaurante - 25min
 
-- Implementar melhorias e revisar código e documentação - 3h
+- Implementar melhorias e revisar código e documentação - 4h
 
 - Atualizar Readme - 2h
 

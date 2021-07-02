@@ -84,7 +84,7 @@ docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3333:3333 -e REDIS_HO
 
 Eu geralmente gosto de documentar minhas API's na plataforma stoplight.io, então vou deixar aqui o [link pra acessar a referência da API online](https://qualtrics.stoplight.io/docs/gh/gabrieldissotti/job-dev-backend-interview).
 
-Vou deixar esses links para que você possa baixar o <a href="./docs/postman.collection.json" download>arquivo de collection para Postman</a> ou <a href="./docs/insomnia.collection.json" download>o arquivo para Insomnia</a> para fazer as requests à API localmente caso deseje. Você pode importar esses arquivos no programa correspondente e já deixei alguns payloads prontos para você usar.
+Vou deixar esses links para que você possa baixar o [arquivo de collection para Postman](./docs/postman.collection.json) ou [o arquivo para Insomnia](./docs/insomnia.collection.json) para fazer as requests à API localmente caso deseje. Você pode importar esses arquivos no programa correspondente e já deixei alguns payloads prontos para você usar.
 
 ## Banco de dados e modelagem
 
@@ -99,7 +99,7 @@ Dentre os 3 bancos SGBD's para SQL que já utilizei (Postgres, MariaDB/MySQL e S
 Sendo assim, esse foi a modelagem do projeto que elaborei com base no problema:
 
 
-<img src="./docs/media/DER.png" />
+![Diagrama Entidade Relacionamento](./docs/media/DER.png)
 
 [Você pode ver o DDL clicando aqui](./docs/DDL-DML.sql)
 
@@ -120,7 +120,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 
 **Cobertura de Testes**
 
-<img src="./docs/media/coverage.png" />
+![Cobertura de testes](./docs/media/coverage.png)
 
 ## O que poderia melhorar
 

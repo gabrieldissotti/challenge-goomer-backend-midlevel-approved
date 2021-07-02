@@ -15,7 +15,7 @@ servers:
 paths:
   /restaurants:
     get:
-      summary: Your GET endpoint
+      summary: List Restaurants
       tags: []
       responses:
         '200':
@@ -38,7 +38,8 @@ paths:
                         type: number
                   items:
                     type: array
-                    items: {}
+                    items:
+                      $ref: '#/components/schemas/Restaurant'
               examples:
                 success example:
                   value:
@@ -50,9 +51,9 @@ paths:
                     items:
                       - id: e3a49cd9-64bb-428c-ac93-9e0b2f6b5da8
                         name: Gabe Panquecaria
-                        photo_url: 'https://avatars.githubusercontent.com/u/33178519?v=4'
-                        created_at: '2021-07-01T22:57:23.937Z'
-                        updated_at: '2021-07-01T22:57:23.937Z'
+                        photoUrl: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                        createdAt: '2021-07-01T22:57:23.937Z'
+                        updatedAt: '2021-07-01T22:57:23.937Z'
       operationId: get-restaurants
       description: List restaurants
       parameters:
@@ -65,5 +66,211 @@ paths:
             type: integer
           in: query
           name: pagesize
+  '/restaurants/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Show Restaurant
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+              examples:
+                success example:
+                  value:
+                    id: ee9260ca-8356-4ecf-8874-50606e6816fd
+                    name: Gabe Panquecaria
+                    photo_url: 'https://avatars.githubusercontent.com/u/33178519?v=4'
+                    createdAt: '2021-07-01T06:45:45.409Z'
+                    updatedAt: '2021-07-01T06:45:45.409Z'
+                    address:
+                      id: 604d1249-a629-48f4-bf7e-ec455287d5b2
+                      restaurantId: ee9260ca-8356-4ecf-8874-50606e6816fd
+                      street: Rua Voluntários da Patria
+                      number: '371'
+                      postalCode: '18060005'
+                      neighborhood: Vila Carvalho
+                      createdAt: '2021-07-01T06:45:45.428Z'
+                      updatedAt: '2021-07-01T06:45:45.428Z'
+                    workingHours:
+                      - id: af428bef-c927-42ad-8f27-8e9889eb34dc
+                        restaurantId: ee9260ca-8356-4ecf-8874-50606e6816fd
+                        promotionId: null
+                        weekday: sunday
+                        startAt: '13:00:00'
+                        finishAt: '18:00:00'
+                        createdAt: '2021-07-01T06:45:45.445Z'
+                        updatedAt: '2021-07-01T06:45:45.445Z'
+      operationId: get-restaurants-id
 components:
-  schemas: {}
+  schemas:
+    Address:
+      title: Address
+      type: object
+      x-examples:
+        full:
+          id: 604d1249-a629-48f4-bf7e-ec455287d5b2
+          restaurant_id: ee9260ca-8356-4ecf-8874-50606e6816fd
+          street: Rua Voluntários da Patria
+          number: '371'
+          postal_code: '18060005'
+          neighborhood: Vila Carvalho
+          created_at: '2021-07-01T06:45:45.428Z'
+          updated_at: '2021-07-01T06:45:45.428Z'
+      description: ''
+      properties:
+        id:
+          type: string
+        restaurantId:
+          type: string
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        neighborhood:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    WorkingHour:
+      title: WorkingHour
+      type: object
+      properties:
+        id:
+          type: string
+        restaurantId:
+          type:
+            - string
+            - 'null'
+        promotionId:
+          type:
+            - string
+            - 'null'
+        weekday:
+          type: string
+        startAt:
+          type: string
+        finishAt:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Restaurant:
+      title: Restaurant
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        photoUrl:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Product:
+      title: Product
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        photoUrl:
+          type: string
+        price:
+          type: number
+        categoryId:
+          type: string
+        restaurantId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Promotion:
+      title: Promotion
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    ProductAndRelationships:
+      title: ProductAndRelationships
+      type: object
+      properties:
+        properties: {}
+        id:
+          type: string
+        name:
+          type: string
+        photoUrl:
+          type: string
+        price:
+          type: number
+        categoryId:
+          type: string
+        restaurantId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        promotion:
+          type: object
+          properties:
+            id:
+              type: string
+            description:
+              type: string
+            price:
+              type: number
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+            workingHours:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  weekday:
+                    type: string
+                  startAt:
+                    type: string
+                  finishAt:
+                    type: string
+                  restaurantId:
+                    type:
+                      - string
+                      - 'null'
+                  promotionId:
+                    type:
+                      - string
+                      - 'null'
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string

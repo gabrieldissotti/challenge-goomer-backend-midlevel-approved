@@ -127,4 +127,7 @@ Para a maioria dos casos eu utilizei da prática TDD criando os testes antes de 
 Fico a disposição para tirar dúvidas e sempre estarei aberto a criticas construtivas e sugestões de melhorias, obrigado pela atenção!
 
 Contato: gabrieldnrodrigues@gmail.com
+
 Linkedin: https://www.linkedin.com/in/gabrieldissotti/
+
+> Algumas pessoas com quem trabalhei recentemente comentaram sobre a experiência que tiveram em trabalhar comigo, vale dar uma olhada lá 😀
